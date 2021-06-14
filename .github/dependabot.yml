@@ -1,29 +1,44 @@
 version: 2
 updates:
-- package-ecosystem: "gradle"
-  directory: "/"
-  schedule:
-    interval: "weekly"
-  open-pull-requests-limit: 10
-  assignees:
-    - "rymsha"
-  reviewers:
-    - "rymsha"
-- package-ecosystem: "npm"
-  directory: "/"
-  schedule:
-    interval: "monthly"
-  open-pull-requests-limit: 10
-  assignees:
-    - "alansemenov"
-  reviewers:
-    - "alansemenov"
-- package-ecosystem: "github-actions"
-  directory: "/"
-  schedule:
-    interval: "monthly"
-  open-pull-requests-limit: 10
-  assignees:
-    - "rymsha"
-  reviewers:
-    - "rymsha"
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    assignees:
+      - "maxYurchenko"
+    reviewers:
+      - "maxYurchenko"
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 10
+    assignees:
+      - "maxYurchenko"
+    reviewers:
+      - "maxYurchenko"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 10
+    assignees:
+      - "maxYurchenko"
+    reviewers:
+      - "maxYurchenko"
+
+name: auto-merge
+
+on:
+  pull_request:
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ahmadnassri/action-dependabot-auto-merge@v2
+        with:
+          target: minor
+          github-token: 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
