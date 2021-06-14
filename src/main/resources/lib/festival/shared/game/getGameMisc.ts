@@ -1,5 +1,6 @@
 import { Content } from "enonic-types/content";
-import { Game } from "../../site/content-types/game/game";
+import { Game } from "../../../../site/content-types/game/game";
+const i18nLib = __non_webpack_require__("/lib/xp/i18n");
 
 export { getGameMisc };
 

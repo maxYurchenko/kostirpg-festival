@@ -1,18 +1,17 @@
-const contentLib = __non_webpack_require__("/lib/xp/content");
-const utils = __non_webpack_require__("/lib/util");
-
 import { Content } from "enonic-types/content";
+import { Game } from "../../site/content-types/game/game";
 
-const formPlayerLib = require("formPlayerLib");
-const festivalSharedLib = require("festivalSharedLib");
-const contextLib = require("../contextLib");
-const cartLib = require("../cartLib");
+const cartLib = require("/lib/cartLib");
+const utils = __non_webpack_require__("/lib/util");
+const contentLib = __non_webpack_require__("/lib/xp/content");
+import * as contextLib from "./helpers/contextLib";
 
-exports.checkUser = checkUser;
-exports.getGames = getGames;
-exports.getEvents = getEvents;
+import { getTablesStartNum } from "./shared/game/getGameTable";
+import { updateEntity } from "./shared/updateEntity";
 
-function checkUser(params) {
+export { checkUser, getGames, getEvents };
+
+function checkUser(params: any) {
   if (!params || !params.ticketId || !params.discordId)
     return { success: false };
   let cart = cartLib.getCartByQr(params.ticketId);
@@ -22,7 +21,7 @@ function checkUser(params) {
     if (!user.data.discord) {
       user.data.discord = params.discordId;
       contextLib.runAsAdmin(function () {
-        formPlayerLib.updateEntity(user);
+        updateEntity(user);
       });
     }
     return { success: true, turbo: cart.legendary };
@@ -36,7 +35,7 @@ function checkUser(params) {
   return { success: false, message: "Билет не найден." };
 }
 
-function getUserByTicket(ticketId: string) {
+function getUserByTicket(ticketId: string): any {
   if (!ticketId) return null;
   let users = contentLib.query({
     query: "data.kosticonnect2021 = " + ticketId,
@@ -49,7 +48,7 @@ function getUserByTicket(ticketId: string) {
 }
 
 function getGames(filter?: string, userId?: string) {
-  let query = null;
+  let query: string;
   switch (filter) {
     case "today":
       query = getTodayTimeFilter();
@@ -63,7 +62,7 @@ function getGames(filter?: string, userId?: string) {
   }
   if (!query) return { success: false };
   let result = [];
-  let comingGames = contentLib.query({
+  let comingGames = contentLib.query<Game>({
     query: query,
     start: 0,
     count: -1,
@@ -74,7 +73,7 @@ function getGames(filter?: string, userId?: string) {
   let j = 0;
   for (let i = 0; i < comingGames.length; i++) {
     let game = comingGames[i];
-    let currTables = festivalSharedLib.getTablesStartNum(game._id);
+    let currTables = getTablesStartNum(game._id);
     if (tables !== currTables) {
       tables = currTables;
       j = 0;
@@ -82,7 +81,8 @@ function getGames(filter?: string, userId?: string) {
     let players: Player[] = [];
     game.data.players ? game.data.players : [];
     game.data.players = utils.data.forceArray(game.data.players);
-    game.data.players.forEach((player) => {
+    if (!game.data.players) continue;
+    game.data.players.forEach((player: any) => {
       if (!player) return;
       player = contentLib.get({ key: player });
       if (player && player.data.discord)
@@ -92,7 +92,7 @@ function getGames(filter?: string, userId?: string) {
         });
       else if (player) players.push({ displayName: player.displayName });
     });
-    let master = contentLib.get({ key: game.data.master });
+    let master: any = contentLib.get({ key: game.data.master });
     result.push({
       displayName: game.displayName,
       table: currTables + j,
@@ -129,7 +129,7 @@ function getEvents(filter?: string) {
     contentTypes: [app.name + ":festivalEvent"]
   }).hits;
   for (let i = 0; i < events.length; i++) {
-    let event = events[i];
+    let event: any = events[i];
     result.push({
       displayName: event.displayName,
       dateTimeStart: event.data.datetime,
@@ -199,7 +199,7 @@ function getUserFilter(userId?: string) {
       "')"
     );
   }
-  return false;
+  return "";
 }
 
 interface Player {

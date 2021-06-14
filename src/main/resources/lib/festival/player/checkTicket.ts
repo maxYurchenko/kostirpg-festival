@@ -1,4 +1,7 @@
-import { UserAllData } from "../../types/kostiUser";
+import { UserAllData } from "../../../types/kostiUser";
+
+const cartLib = require("/lib/cartLib");
+const userLib = __non_webpack_require__("/lib/userLib");
 
 export { checkTicket };
 

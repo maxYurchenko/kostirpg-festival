@@ -1,11 +1,13 @@
 const contentLib = __non_webpack_require__("/lib/xp/content");
 const common = __non_webpack_require__("/lib/xp/common");
+const userLib = __non_webpack_require__("/lib/userLib");
+const i18nLib = __non_webpack_require__("/lib/xp/i18n");
 
 import { checkIfGameExists } from "./checkGameExists";
 import { checkIfMasterBookedThisBlock } from "./checkMasterAvailable";
 import { checkIfGameRegisterOpen } from "../shared/checkRegister";
 import { full } from "./../misc/permissions";
-import { getLocationSpace } from "../shared/locationSpace";
+import { getLocationSpace } from "../shared/location/locationSpace";
 import * as contextLib from "../helpers/contextLib";
 import { Game } from "../../../site/content-types/game/game";
 import { Block } from "../../../site/content-types/block/block";

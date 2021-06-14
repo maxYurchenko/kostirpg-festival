@@ -1,6 +1,7 @@
 import { Content } from "enonic-types/content";
 import * as contextLib from "../helpers/contextLib";
 const contentLib = __non_webpack_require__("/lib/xp/content");
+const userLib = __non_webpack_require__("/lib/userLib");
 
 export { updateEntity };
 

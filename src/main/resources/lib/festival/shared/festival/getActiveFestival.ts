@@ -4,8 +4,8 @@ export { getActiveFestival };
 
 function getActiveFestival() {
   let festivals = getFestivals();
-  if (festivals.length > 0) {
-    festivals[0].online = festivals[0].data && festivals[0].data.onlineFestival;
-    return festivals[0];
-  }
+  if (festivals.length < 1) return null;
+  let fest: any = festivals[0];
+  fest.online = fest && fest.onlineFestival;
+  return fest;
 }

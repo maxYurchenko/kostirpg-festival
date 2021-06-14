@@ -1,4 +1,4 @@
-import { UserAllData } from "../../types/kostiUser";
+import { UserAllData } from "../../../types/kostiUser";
 
 const contentLib = __non_webpack_require__("/lib/xp/content");
 const userLib = __non_webpack_require__("/lib/userLib");

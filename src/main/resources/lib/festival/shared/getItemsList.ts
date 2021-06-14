@@ -1,4 +1,7 @@
 import { Content } from "enonic-types/content";
+import { Block } from "../../../site/content-types/block/block";
+import { Game } from "../../../site/content-types/game/game";
+import { Location } from "../../../site/content-types/location/location";
 
 const contentLib = __non_webpack_require__("/lib/xp/content");
 
@@ -23,7 +26,7 @@ function getItemsList(filters: Filters) {
   if (filters.additionalQuery) {
     query += filters.additionalQuery;
   }
-  return contentLib.query({
+  return contentLib.query<Block | Game | Location>({
     query: query,
     start: 0,
     count: filters.count ? filters.count : -1,

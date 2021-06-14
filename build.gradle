@@ -20,6 +20,7 @@ dependencies {
   include "com.enonic.xp:lib-context:${xpVersion}"
   include "com.enonic.lib:lib-thymeleaf:2.0.1"
   include "com.kostirpg.lib:user:0.1.0"
+  include "com.kostirpg.lib:cart:0.1.1"
   include "com.enonic.lib:lib-util:3.0.0"
 }
 

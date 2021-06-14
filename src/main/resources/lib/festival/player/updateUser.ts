@@ -1,10 +1,12 @@
 import { Content } from "enonic-types/content";
-import { UserAllData } from "../../types/kostiUser";
-import { User } from "../../types/user";
+import { UserAllData } from "../../../types/kostiUser";
+import { User } from "../../../types/user";
 
 import * as contextLib from "../helpers/contextLib";
 import { updateEntity } from "../shared/updateEntity";
 import { checkTicket } from "../player/checkTicket";
+const cartLib = require("/lib/cartLib");
+const userLib = __non_webpack_require__("/lib/userLib");
 
 export { updateUser };
 

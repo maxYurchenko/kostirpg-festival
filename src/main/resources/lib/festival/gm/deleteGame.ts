@@ -1,4 +1,5 @@
 const contentLib = __non_webpack_require__("/lib/xp/content");
+const i18nLib = __non_webpack_require__("/lib/xp/i18n");
 
 import { checkIfGameRegisterOpen } from "../shared/checkRegister";
 

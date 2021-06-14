@@ -1,9 +1,11 @@
 const contentLib = __non_webpack_require__("/lib/xp/content");
 const userLib = __non_webpack_require__("/lib/userLib");
+const utils = __non_webpack_require__("/lib/util");
 
 import { Content } from "enonic-types/content";
-import { Game } from "../../site/content-types/game/game";
-import { UserAllData } from "../../types/kostiUser";
+import { Game } from "../../../site/content-types/game/game";
+import { UserAllData } from "../../../types/kostiUser";
+import { validateTicketGameAllowed } from "./validateTicketGameAllowed";
 
 export { validateUser };
 
@@ -41,7 +43,10 @@ function validateUser(game: Content<Game>): Valid {
       error: true,
       message: "Вам нужен билет чтоб записатся."
     };
-  if (!validateTicketGameAllowed(kosticonnect2021, game._id)) {
+  if (
+    !kosticonnect2021 ||
+    !validateTicketGameAllowed(kosticonnect2021, game._id)
+  ) {
     return {
       error: true,
       message: "Ваш билет не позволяет принять участие в этой игре."

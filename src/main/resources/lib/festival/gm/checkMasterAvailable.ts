@@ -1,6 +1,7 @@
 import { Block } from "../../../site/content-types/block/block";
 
 const contentLib = __non_webpack_require__("/lib/xp/content");
+const userLib = __non_webpack_require__("/lib/userLib");
 
 export { checkIfMasterBookedThisBlock };
 

@@ -1,5 +1,5 @@
-import { Block } from "../../site/content-types/block/block";
-import { Location } from "../../site/content-types/location/location";
+import { Block } from "../../../../site/content-types/block/block";
+import { Location } from "../../../../site/content-types/location/location";
 
 const contentLib = __non_webpack_require__("/lib/xp/content");
 
@@ -32,7 +32,7 @@ function getLocationSpace(locationId: string, blockId: string): LocationSpace {
   };
 }
 
-interface LocationSpace {
+export interface LocationSpace {
   total: number;
   reserved: number;
   available: number;

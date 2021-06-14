@@ -1,33 +1,64 @@
 import { Content } from "enonic-types/content";
-import { Block } from "../../../site/content-types/block/block";
-import { getLocationSpace } from "../locationSpace";
+import { Block } from "../../../../site/content-types/block/block";
+import { getLocationSpace, LocationSpace } from "../location/locationSpace";
+import { getDayName, getMonthName, getTime } from "../../helpers/date";
+import { ProcessedGame } from "../game/beautifyGame";
 
-export { beautifyGameBlock };
+export { beautifyGameBlock, BlockProcessed };
 
-function beautifyGameBlock(locationId: string, block: Content<Block>) {
-  block.duration = {};
-  if (block.data.datetimeEnd && block.data.datetime) {
-    var duration =
-      new Date(block.data.datetimeEnd) - new Date(block.data.datetime);
-    var hours = Math.floor(duration / 60 / 60 / 1000);
-    block.duration = {
-      hours: hours.toFixed(),
-      minutes: (Math.floor(duration / 60 / 1000) - hours * 60).toFixed()
-    };
+function beautifyGameBlock(
+  block: Content<Block>,
+  locationId?: string
+): BlockProcessed {
+  let duration;
+  let hoursDuration;
+  let blockDate = new Date(block.data.datetime);
+  if (block.data.datetimeEnd) {
+    duration = new Date(block.data.datetimeEnd).getTime() - blockDate.getTime();
+    hoursDuration = Math.floor(duration / 60 / 60 / 1000);
   }
-  var blockDate = new Date(block.data.datetime);
-  block.date = blockDate.getDate().toFixed();
-  block.dayName = norseUtils.getDayName(blockDate);
-  block.monthName = norseUtils.getMonthName(blockDate);
-  block.time = {
-    start: norseUtils.getTime(new Date(block.data.datetime)),
-    end: block.data.datetimeEnd
-      ? norseUtils.getTime(new Date(block.data.datetimeEnd))
-      : null
+  let result: BlockProcessed = {
+    content: block,
+    processed: {
+      date: blockDate.getDate(),
+      dayName: getDayName(blockDate),
+      monthName: getMonthName(blockDate),
+      time: {
+        start: getTime(blockDate),
+        end: block.data.datetimeEnd
+          ? getTime(new Date(block.data.datetimeEnd))
+          : undefined
+      },
+      duration:
+        duration && hoursDuration
+          ? {
+              hours: hoursDuration,
+              minutes: Math.floor(duration / 60 / 1000) - hoursDuration * 60
+            }
+          : undefined,
+      epic: !!(block.data.description && block.data.title),
+      space: locationId ? getLocationSpace(locationId, block._id) : undefined
+    }
   };
-  block.epic = !!(block.data.description && block.data.title);
-  if (locationId) {
-    block.space = getLocationSpace(locationId, block._id);
-  }
-  return block;
+  return result;
+}
+
+interface BlockProcessed {
+  content: Content<Block>;
+  processed: {
+    dayName: string;
+    monthName: string;
+    time: {
+      start: string;
+      end?: string;
+    };
+    duration?: {
+      hours: number;
+      minutes: number;
+    };
+    epic: boolean;
+    space?: LocationSpace;
+    date: number;
+    games?: ProcessedGame[];
+  };
 }

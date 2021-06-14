@@ -1,10 +1,12 @@
 const contentLib = __non_webpack_require__("/lib/xp/content");
+const utils = __non_webpack_require__("/lib/util");
+const userLib = __non_webpack_require__("/lib/userLib");
 
-import { gameSpaceAvailable } from "../shared/gameSpace";
+import { gameSpaceAvailable } from "../shared/game/gameSpace";
 import { updateEntity } from "../shared/updateEntity";
 import { validateUser } from "../player/validateUser";
-import { Game } from "../../site/content-types/game/game";
-import { UserAllData } from "../../types/kostiUser";
+import { Game } from "../../../site/content-types/game/game";
+import { UserAllData } from "../../../types/kostiUser";
 
 export { signForGame };
 

@@ -1,4 +1,6 @@
 const contentLib = __non_webpack_require__("/lib/xp/content");
+const userLib = __non_webpack_require__("/lib/userLib");
+const i18nLib = __non_webpack_require__("/lib/xp/i18n");
 import { Content } from "enonic-types/content";
 import { Game } from "../../../site/content-types/game/game";
 import * as contextLib from "../helpers/contextLib";
