@@ -7,9 +7,9 @@ import { getDays, DaysFilters } from "../../shared/day/getDays";
 import { getFestivalByDays } from "../../shared/festival/getFestivalByDay";
 import { getFormComponent } from "./getForm";
 
-export { getView };
+export { getViewModel };
 
-function getView(viewType: string, id: string, params: DaysFilters) {
+function getViewModel(viewType: string, id: string, params: DaysFilters) {
   switch (viewType) {
     case "locationAndGameBlockComp":
       return getLocationsGameBlocksModel(id);

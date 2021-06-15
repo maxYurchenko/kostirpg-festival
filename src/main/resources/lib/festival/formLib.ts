@@ -1,3 +1,3 @@
-import { getView } from "./gm/form/getView";
+import { getViewModel } from "./gm/form/getView";
 
-exports.getView = getView;
+exports.getViewModel = getViewModel;
