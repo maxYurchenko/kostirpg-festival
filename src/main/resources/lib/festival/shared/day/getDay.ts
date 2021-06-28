@@ -19,7 +19,7 @@ function getDay(id: string): DayProcessed[] {
       " AND _id = '" +
       id +
       "'",
-    contentTypes: [app.name + ":gameBlock"],
+    contentTypes: [app.name + ":gameBlock", app.name + ":block"],
     sort: "data.datetime ASC",
     count: 1
   }).hits;

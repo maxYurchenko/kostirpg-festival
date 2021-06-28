@@ -12,16 +12,16 @@ function getDays(skipBeautify?: boolean, expanded?: string) {
   if (festivals && festivals[0]) {
     id = festivals[0]._id;
   } else {
-    return null;
+    return [];
   }
   let festivalPage = contentLib.get({ key: id });
-  if (!festivalPage) return null;
+  if (!festivalPage) return [];
   let days = contentLib.query<Block>({
     query:
       "_parentPath LIKE '/content" +
       festivalPage._path +
       "*' AND data.blockType = 'day'",
-    contentTypes: [app.name + ":gameBlock"],
+    contentTypes: [app.name + ":gameBlock", app.name + ":block"],
     sort: "data.datetime ASC",
     count: 10
   }).hits;

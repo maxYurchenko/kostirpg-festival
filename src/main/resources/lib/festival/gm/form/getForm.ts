@@ -7,6 +7,7 @@ import { isBlock } from "../../shared/block/getGameBlocks";
 import { beautifyDay } from "../../shared/day/beautifyDay";
 import { getSelectOptions } from "../../shared/getSelectOptions";
 import { getFestivalByDay } from "../../shared/festival/getFestivalByDay";
+import { UserAllData } from "../../../../types/kostiUser";
 
 const utils = __non_webpack_require__("/lib/util");
 const contentLib = __non_webpack_require__("/lib/xp/content");
@@ -23,13 +24,13 @@ const cache = cacheLib.api.createGlobalCache({
 
 function getFormComponent(id?: string) {
   let content, action, game, block, location;
-  let user = userLib.getCurrentUser();
+  let user: UserAllData = userLib.getCurrentUser();
   let discord = {};
-  if (user && user.data && user.data.discord) {
-    discord = cache.api.getOnly(user._id + "-discord");
+  if (user && user.content.data && user.content.data.discord) {
+    discord = cache.api.getOnly(user.content._id + "-discord");
     if (!discord) {
-      discord = userLib.getDiscordData(user._id);
-      if (discord) cache.api.put(user._id + "-discord", discord);
+      discord = userLib.getDiscordData(user.content._id);
+      if (discord) cache.api.put(user.content._id + "-discord", discord);
     }
   }
   if (id) content = contentLib.get<Game | Block>({ key: id });
@@ -59,6 +60,8 @@ function getFormComponent(id?: string) {
     gameSystems: getSelectOptions("gameSystem"),
     themes: getSelectOptions("theme"),
     festival: getFestivalByDay(day.content._id),
-    day: day
+    day: day,
+    hideSelectLanguage:
+      block?.content.data.language || day.content.data.language
   };
 }

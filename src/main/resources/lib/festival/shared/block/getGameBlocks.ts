@@ -11,7 +11,7 @@ function getGameBlocks(locationId: string): Array<BlockProcessed> {
   let result: Array<BlockProcessed> = [];
   let blocks = getItemsList({
     parentId: locationId,
-    type: "gameBlock",
+    type: "block",
     sort: "data.datetime ASC"
   });
   for (let i = 0; i < blocks.length; i++) {

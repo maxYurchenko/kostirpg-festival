@@ -1,12 +1,14 @@
 const userLib = __non_webpack_require__("/lib/userLib");
+const utils = __non_webpack_require__("/lib/util");
 
+import { UserAllData } from "../../../../types/kostiUser";
 import { getItemsList } from "../../shared/getItemsList";
 import { beautifyGame, isGame } from "../game/beautifyGame";
 
 export { getDaysByUser };
 
 function getDaysByUser(parent: string, admin?: boolean) {
-  var user = userLib.getCurrentUser();
+  var user: UserAllData = userLib.getCurrentUser();
   let games;
   let result = [];
   if (admin) {
@@ -18,7 +20,7 @@ function getDaysByUser(parent: string, admin?: boolean) {
     });
   } else {
     games = getItemsList({
-      master: user._id,
+      master: user.content._id,
       parentId: parent,
       parentPathLike: true,
       type: "game"

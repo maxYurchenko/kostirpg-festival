@@ -1,4 +1,5 @@
 import { Content } from "enonic-types/content";
+import { DayProcessed } from "../day/beautifyDay";
 
 const utils = __non_webpack_require__("/lib/util");
 
@@ -16,13 +17,13 @@ function getFestivalByDay(id: string) {
   return null;
 }
 
-function getFestivalByDays(arr: Array<Content> | string[] | string) {
+function getFestivalByDays(arr: Array<DayProcessed> | string[] | string) {
   arr = utils.data.forceArray(arr);
   if (arr[0] && typeof arr[0] === "string") {
     return getFestivalByDay(arr[0]);
   } else if (arr && typeof arr === "string") {
     return getFestivalByDay(arr);
   } else if (arr[0] && typeof arr[0] !== "string") {
-    return getFestivalByDay(arr[0]._id);
+    return getFestivalByDay(arr[0].content._id);
   }
 }

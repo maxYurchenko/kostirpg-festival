@@ -3,7 +3,8 @@ const utils = __non_webpack_require__("/lib/util");
 import { getFestivalByDay } from "../../shared/festival/getFestivalByDay";
 import { getLocations } from "../../shared/location/getLocations";
 import { getGameBlocks } from "../../shared/block/getGameBlocks";
-import { getDays, DaysFilters } from "../../shared/day/getDays";
+import { DaysFilters } from "../../shared/day/getDays";
+import { getDays } from "../../shared/day/getDaysGM";
 import { getFestivalByDays } from "../../shared/festival/getFestivalByDay";
 import { getFormComponent } from "./getForm";
 
@@ -28,11 +29,12 @@ function getViewModel(viewType: string, id: string, params: DaysFilters) {
 function getLocationsGameBlocksModel(id: string) {
   let locations = getLocations(id);
   let festival = getFestivalByDay(id);
-  return {
+  let model = {
     locations: locations,
     festival: festival,
     blocks: getGameBlocks(locations[0]._id)
   };
+  return model;
 }
 
 function getGameBlocksModel(id: string) {
@@ -44,7 +46,7 @@ function getGameBlocksModel(id: string) {
 }
 
 function getScheduleModel(params: DaysFilters) {
-  let days = getDays(params);
+  let days = getDays();
   return {
     days: days,
     festival: getFestivalByDays([days[0].content._id])

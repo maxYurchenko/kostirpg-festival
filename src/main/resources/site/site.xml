@@ -1,4 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-  <form/>
+  <form>
+    <mappings>
+      <mapping controller="/api/gm/createGame.js">
+        <pattern>/api/festival/games/create</pattern>
+      </mapping>
+      <mapping controller="/api/gm/deleteGame.js">
+        <pattern>/api/festival/games/delete</pattern>
+      </mapping>
+      <mapping controller="/api/gm/modifyGame.js">
+        <pattern>/api/festival/games/modify</pattern>
+      </mapping>
+      <mapping controller="/api/festival/updateUserData.js">
+        <pattern>/api/festival/userdata</pattern>
+      </mapping>
+      <mapping controller="/api/festival/signInForGame.js">
+        <pattern>/api/festival/gamesignup</pattern>
+      </mapping>
+      <mapping controller="/api/festival/signOutOfGame.js">
+        <pattern>/api/festival/gamesignout</pattern>
+      </mapping>
+      <mapping controller="/api/festival/discord.js">
+        <pattern>/api/festival/discord</pattern>
+      </mapping>
+      <mapping controller="/api/festival/gamesList.js">
+        <pattern>/api/festival/games/list</pattern>
+      </mapping>
+      <mapping controller="/api/festival/bot/checkUser.js">
+        <pattern>/api/festival/bot/checkuser</pattern>
+      </mapping>
+      <mapping controller="/api/festival/bot/games/now.js">
+        <pattern>/api/festival/bot/games/now</pattern>
+      </mapping>
+      <mapping controller="/api/festival/bot/games/today.js">
+        <pattern>/api/festival/bot/games/today</pattern>
+      </mapping>
+      <mapping controller="/api/festival/bot/games/user.js">
+        <pattern>/api/festival/bot/games/user</pattern>
+      </mapping>
+      <mapping controller="/api/festival/bot/events/now.js">
+        <pattern>/api/festival/bot/events/now</pattern>
+      </mapping>
+      <mapping controller="/api/festival/bot/events/today.js">
+        <pattern>/api/festival/bot/events/today</pattern>
+      </mapping>
+    </mappings>
+  </form>
 </site>

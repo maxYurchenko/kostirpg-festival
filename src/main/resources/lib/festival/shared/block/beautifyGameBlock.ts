@@ -32,8 +32,11 @@ function beautifyGameBlock(
       duration:
         duration && hoursDuration
           ? {
-              hours: hoursDuration,
-              minutes: Math.floor(duration / 60 / 1000) - hoursDuration * 60
+              hours: hoursDuration.toFixed(),
+              minutes: (
+                Math.floor(duration / 60 / 1000) -
+                hoursDuration * 60
+              ).toFixed()
             }
           : undefined,
       epic: !!(block.data.description && block.data.title),
@@ -53,8 +56,8 @@ interface BlockProcessed {
       end?: string;
     };
     duration?: {
-      hours: number;
-      minutes: number;
+      hours: string;
+      minutes: string;
     };
     epic: boolean;
     space?: LocationSpace;

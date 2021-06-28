@@ -9,7 +9,7 @@ function getGameBlocksByDay(dayId: string) {
   let result = [];
   let blocks = getItemsList({
     parentId: dayId,
-    type: "gameBlock",
+    type: "block",
     parentPathLike: true,
     sort: "data.datetime ASC"
   });

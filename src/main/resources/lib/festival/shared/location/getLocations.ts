@@ -5,6 +5,6 @@ export { getLocations };
 function getLocations(dayId: string) {
   return getItemsList({
     parentId: dayId,
-    type: "gamesLocation"
+    type: "location"
   });
 }

@@ -21,12 +21,12 @@ function getDaySpace(dayId: string): DaySpace {
     }
   }
   return {
-    total: space.total,
-    reserved: space.reserved
+    total: space.total.toFixed(),
+    reserved: space.reserved.toFixed()
   };
 }
 
 export interface DaySpace {
-  total: number;
-  reserved: number;
+  total: string;
+  reserved: string;
 }

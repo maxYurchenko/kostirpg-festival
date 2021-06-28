@@ -31,6 +31,11 @@ export interface Block {
   blockNumber?: "1" | "2" | "3" | "4" | "5";
 
   /**
+   * Predefined language for games
+   */
+  language?: "en" | "ua" | "ru";
+
+  /**
    * Preselected system. For game blocks only
    */
   system?: "dnd5" | "vtm20" | "vtm5" | "pathfinder1" | "pathfinder2" | "shadowrun" | "cyberpunkRed" | "cyberpunk2020" | "wfrp" | "w40kwg" | "coc" | "coriolis" | "talesFromTheLoop" | "mutanYearZero" | "bladesInTheDark" | "morkBorg" | "shinobi" | "fate" | "trailOfCthulhu" | "cavalry" | "enoa";

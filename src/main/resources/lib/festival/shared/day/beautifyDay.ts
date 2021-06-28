@@ -5,13 +5,19 @@ import { DaySpace, getDaySpace } from "./getDaySpace";
 import { getDaysByUser } from "./getDaysByUser";
 import { getDayName, getMonthName } from "../../helpers/date";
 import { BlockProcessed } from "../block/beautifyGameBlock";
+import { UserAllData } from "../../../../types/kostiUser";
+import { getFestivalByDay } from "../festival/getFestivalByDay";
 const userLib = __non_webpack_require__("/lib/userLib");
 
 export { beautifyDay };
 
-function beautifyDay(day: Content<Block>, expanded?: string): DayProcessed {
+function beautifyDay(
+  day: Content<Block>,
+  expanded?: string,
+  includeGames: boolean = true
+): DayProcessed {
   let dayDate = new Date(day.data.datetime);
-  let user = userLib.getCurrentUser();
+  let user: UserAllData = userLib.getCurrentUser();
   let result = {
     content: day,
     processed: {
@@ -21,7 +27,13 @@ function beautifyDay(day: Content<Block>, expanded?: string): DayProcessed {
       monthName: getMonthName(dayDate),
       space: getDaySpace(day._id),
       locations: getLocations(day._id),
-      games: getDaysByUser(day._id, user && user.roles && user.roles.moderator)
+      festival: getFestivalByDay(day._id),
+      games: includeGames
+        ? getDaysByUser(
+            day._id,
+            user && user?.data?.roles && user.data.roles.moderator
+          )
+        : null
     }
   };
   return result;

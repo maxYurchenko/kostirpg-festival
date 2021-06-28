@@ -28,7 +28,7 @@ function getItemsList(filters: Filters) {
   }
   return contentLib.query<Block | Game | Location>({
     query: query,
-    start: 0,
+    start: filters.start ? filters.start : 0,
     count: filters.count ? filters.count : -1,
     sort: filters.sort ? filters.sort : "_score DESC"
   }).hits;
@@ -43,5 +43,6 @@ interface Filters {
   parent?: Content;
   additionalQuery?: string;
   count?: number;
+  start?: number;
   sort?: string;
 }

@@ -1,4 +1,5 @@
 import { Content } from "enonic-types/content";
+import { UserAllData } from "../../../types/kostiUser";
 import * as contextLib from "../helpers/contextLib";
 const contentLib = __non_webpack_require__("/lib/xp/content");
 const userLib = __non_webpack_require__("/lib/userLib");
@@ -6,7 +7,8 @@ const userLib = __non_webpack_require__("/lib/userLib");
 export { updateEntity };
 
 function updateEntity(entity: Content) {
-  return contextLib.runAsAdminAsUser(userLib.getCurrentUser(), function () {
+  let user: UserAllData = userLib.getCurrentUser();
+  return contextLib.runAsAdminAsUser(user.user, function () {
     entity = contentLib.modify({
       key: entity._id,
       editor: function (c) {

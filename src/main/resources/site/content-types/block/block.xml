@@ -50,6 +50,15 @@
       </config>
       <default>one</default> 
     </input>
+    <input name="language" type="ComboBox">
+      <label>Predefined language for games</label>
+      <occurrences minimum="0" maximum="1"/>
+      <config>
+        <option value="en">En</option>
+        <option value="ua">UA</option>
+        <option value="ru">RU</option>
+      </config>
+    </input>
     <input name="system" type="ComboBox">
       <label>Preselected system. For game blocks only</label>
       <occurrences minimum="0" maximum="1"/>

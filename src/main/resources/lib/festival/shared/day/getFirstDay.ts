@@ -22,7 +22,7 @@ function getFirstDay(): DayProcessed[] {
       "_parentPath LIKE '/content" +
       festivalPage._path +
       "*' AND data.blockType = 'day'",
-    contentTypes: [app.name + ":gameBlock"],
+    contentTypes: [app.name + ":gameBlock", app.name + ":block"],
     sort: "data.datetime ASC",
     count: 1
   }).hits;

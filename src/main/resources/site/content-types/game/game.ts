@@ -8,7 +8,7 @@ export interface Game {
   /**
    * Date and time
    */
-  datetime?: string;
+  datetime: string;
 
   /**
    * Date and time end
@@ -23,7 +23,7 @@ export interface Game {
   /**
    * Max players
    */
-  maxPlayers: "4" | "5" | "6";
+  maxPlayers: "4" | "5" | "6" | "7" | "8";
 
   /**
    * Pregens
@@ -49,6 +49,11 @@ export interface Game {
    * Block
    */
   block: string;
+
+  /**
+   * Day
+   */
+  day: string;
 
   /**
    * Master
@@ -115,7 +120,7 @@ export interface Game {
   /**
    * Virtual Table
    */
-  virtualTable: 
+  virtualTable?: 
   | {
       /**
        * Selected
@@ -129,7 +134,7 @@ export interface Game {
         /**
          * Dropdown
          */
-        virtualTable: "roll20" | "tabletopSimulator" | "fantasyGrounds" | "astralTabletop" | "arkenforege" | "foundry" | "talespite" | "other";
+        virtualTable?: "roll20" | "tabletopSimulator" | "fantasyGrounds" | "astralTabletop" | "arkenforege" | "foundry" | "talespite" | "other";
       }
     }
   | {
@@ -145,7 +150,7 @@ export interface Game {
         /**
          * Manual input
          */
-        virtualTable: string;
+        virtualTable?: string;
       }
     };
 

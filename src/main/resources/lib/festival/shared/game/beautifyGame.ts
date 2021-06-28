@@ -10,7 +10,7 @@ import { getGameMisc } from "./getGameMisc";
 import { getImage } from "../../helpers/image";
 import { Game } from "../../../../site/content-types/game/game";
 import { User } from "../../../../types/user";
-import { beautifyGameBlock } from "../block/beautifyGameBlock";
+import { beautifyGameBlock, BlockProcessed } from "../block/beautifyGameBlock";
 import { getGameTable } from "../game/getGameTable";
 import { Block } from "../../../../site/content-types/block/block";
 import { Location } from "../../../../site/content-types/location/location";
@@ -26,12 +26,17 @@ const cache = cacheLib.api.createGlobalCache({
 function beautifyGame(game: Content<Game>): ProcessedGame {
   let system: any = game.data.gameSystem;
   let systemText = system[system._selected].system;
-  let block = utils.content.getParent({ key: game._id });
-  let processedDay: ProcessedGame = {
+  let block: Content<Block> | null = contentLib.get<Block>({
+    key: game.data.block
+  });
+  let location = contentLib.get<Location>({
+    key: game.data.location
+  });
+  let processedGame: ProcessedGame = {
     content: game,
     processed: {
-      block: beautifyGameBlock(block),
-      location: utils.content.getParent({ key: block._id }).displayName,
+      block: block ? beautifyGameBlock(block) : null,
+      location: location ? location.displayName : null,
       additionalInfo: getGameMisc(game),
       url: portal.pageUrl({ id: game._id }),
       intro:
@@ -45,17 +50,18 @@ function beautifyGame(game: Content<Game>): ProcessedGame {
         localizable: system._selected === "select",
         text: systemText
       },
-      image: {},
-      bigImage: {},
       players: getPlayers(),
       table: getGameTable(game)
     }
   };
   if (game.data.image) {
-    processedDay.processed.image = getImage(game.data.image, "block(321, 181)");
-    processedDay.processed.bigImage = getImage(game.data.image, "width(1300)");
+    processedGame.processed.image = getImage(
+      game.data.image,
+      "block(321, 181)"
+    );
+    processedGame.processed.bigImage = getImage(game.data.image, "width(1300)");
   }
-  return processedDay;
+  return processedGame;
 }
 
 function getPlayers(players?: string[]): string {
@@ -91,17 +97,17 @@ export interface ProcessedGame {
       text: string;
       localizable: boolean;
     };
-    image: object;
-    bigImage: object;
+    image?: object;
+    bigImage?: object;
     additionalInfo: string;
     url: string;
     intro: string;
     seatsReserved: number;
     master: any;
-    block: any;
-    location: any;
+    block: BlockProcessed | null;
+    location: string | null;
     players: string;
-    table: number;
+    table: string;
   };
 }
 

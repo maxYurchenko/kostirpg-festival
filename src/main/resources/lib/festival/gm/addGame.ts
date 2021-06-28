@@ -11,18 +11,24 @@ import { getLocationSpace } from "../shared/location/locationSpace";
 import * as contextLib from "../helpers/contextLib";
 import { Game } from "../../../site/content-types/game/game";
 import { Block } from "../../../site/content-types/block/block";
+import { UserAllData } from "../../../types/kostiUser";
 
 export { addGame };
 
 function addGame(displayName: string, data: Game): Valid {
-  if (
-    getLocationSpace(data.location, data.block).available < 1 ||
-    checkIfGameExists(displayName, data)
-  ) {
+  if (getLocationSpace(data.location, data.block).available < 1) {
     return {
       error: true,
       message: i18nLib.localize({
         key: "myGames.form.message.noSpace"
+      })
+    };
+  }
+  if (checkIfGameExists(displayName, data)) {
+    return {
+      error: true,
+      message: i18nLib.localize({
+        key: "myGames.form.message.gameExists"
       })
     };
   }
@@ -42,58 +48,59 @@ function addGame(displayName: string, data: Game): Valid {
       })
     };
   }
-  return contextLib.runAsAdminAsUser(
-    userLib.getCurrentUser().user,
-    function () {
-      var block = contentLib.get<Block>({ key: data.block });
-      if (!block) return null;
-      let epiBlock = !!(block.data.description && block.data.title);
-      var user = userLib.getCurrentUser();
-      if (!user.data.firstName) {
-        userLib.editUser({ firstName: data.masterName, id: user._id });
-      }
-      data.master = user._id;
-      data.datetime = block.data.datetime;
-      let game = contentLib.create({
-        name: common.sanitize(
-          displayName + (epiBlock ? "-" + data.masterName : "")
-        ),
-        parentPath: block._path,
-        displayName: displayName,
-        contentType: app.name + ":game",
-        data: data
-      });
-      if (!game) {
-        return {
-          error: true,
-          message: i18nLib.localize({
-            key: "myGames.form.message.unableToCreate"
-          })
-        };
-      }
-      contentLib.setPermissions({
-        key: game._id,
-        inheritPermissions: false,
-        overwriteChildPermissions: true,
-        permissions: full(user.key)
-      });
-      var result = contentLib.publish({
-        keys: [game._id],
-        sourceBranch: "master",
-        targetBranch: "draft"
-      });
-      if (!result) {
-        return {
-          error: true,
-          message: i18nLib.localize({
-            key: "myGames.form.message.unableToPublish"
-          })
-        };
-      }
+  let user: UserAllData = userLib.getCurrentUser();
+  return contextLib.runAsAdminAsUser(user.user, function () {
+    var block = contentLib.get<Block>({ key: data.block });
+    if (!block) return null;
+    let epiBlock = !!(block.data.description && block.data.title);
+    if (!user.content.data.firstName) {
+      userLib.editUser({ firstName: data.masterName, id: user.content._id });
+    }
+    data.master = user.content._id;
+    data.datetime = block.data.datetime;
+    data.datetimeEnd = block.data.datetimeEnd;
+    let game = contentLib.create({
+      name: common.sanitize(
+        displayName + (epiBlock ? "-" + data.masterName : "")
+      ),
+      parentPath: block._path,
+      displayName: displayName,
+      contentType: app.name + ":game",
+      data: data
+    });
+    if (!game) {
       return {
-        error: false,
-        data: game
+        error: true,
+        message: i18nLib.localize({
+          key: "myGames.form.message.unableToCreate"
+        })
       };
     }
-  );
+    contentLib.setPermissions({
+      key: game._id,
+      inheritPermissions: false,
+      overwriteChildPermissions: true,
+      permissions: full(user.user.key)
+    });
+    var result = contentLib.publish({
+      keys: [game._id],
+      sourceBranch: "master",
+      targetBranch: "draft"
+    });
+    if (!result) {
+      return {
+        error: true,
+        message: i18nLib.localize({
+          key: "myGames.form.message.unableToPublish"
+        })
+      };
+    }
+    return {
+      error: false,
+      data: game,
+      message: i18nLib.localize({
+        key: "myGames.form.message.created"
+      })
+    };
+  });
 }
