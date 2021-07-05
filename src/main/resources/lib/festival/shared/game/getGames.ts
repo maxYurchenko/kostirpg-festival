@@ -7,13 +7,13 @@ export { getGames };
 
 function getGames(params: GamesFilters) {
   let query = "";
-  if (params.day) {
+  if (!!params.day) {
     query += " and data.day = '" + params.day + "'";
   }
-  if (params.system) {
-    " and data.gameSystem.select.system = '" + params.system + "'";
+  if (!!params.system) {
+    query += " and data.gameSystem.select.system = '" + params.system + "'";
   }
-  if (params.theme) {
+  if (!!params.theme) {
     params.theme = utils.data.forceArray(params.theme);
     if (params.theme)
       query += " AND data.theme in ('" + params.theme.join("','") + "')";
@@ -27,7 +27,19 @@ function getGames(params: GamesFilters) {
   });
   let result: Array<ProcessedGame> = [];
   games.forEach((game) => {
-    if (isGame(game)) result.push(beautifyGame(game));
+    if (isGame(game)) {
+      let gameSpaceAvailable =
+        !game.data.players ||
+        (game.data.players &&
+          game.data.players?.length < parseInt(game.data.maxPlayers));
+      if (params.gameSpace === "free" && gameSpaceAvailable) {
+        result.push(beautifyGame(game));
+      } else if (params.gameSpace === "full" && !gameSpaceAvailable) {
+        result.push(beautifyGame(game));
+      } else if (!params.gameSpace) {
+        result.push(beautifyGame(game));
+      }
+    }
   });
   return result;
 }

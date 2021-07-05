@@ -1,36 +1,27 @@
-const contentLib = __non_webpack_require__("/lib/xp/content");
 const userLib = __non_webpack_require__("/lib/userLib");
-const utils = __non_webpack_require__("/lib/util");
 
 import { Content } from "enonic-types/content";
 import { Game } from "../../../site/content-types/game/game";
 import { UserAllData } from "../../../types/kostiUser";
 import { validateTicketGameAllowed } from "./validateTicketGameAllowed";
+import { validateUserAvailable } from "./validateUserAvailable";
+import { validateMoscowPlayer } from "./validateMoscowPlayer";
 
 export { validateUser };
 
 function validateUser(game: Content<Game>): Valid {
   let user: UserAllData = userLib.getCurrentUser();
   if (!user) return { error: true, message: "Вам нужно войти." };
+
+  let userAvailable = validateUserAvailable(game);
+  if (userAvailable.error) return userAvailable;
+
+  let moscowPlayer = validateMoscowPlayer();
+  if (moscowPlayer.error) return moscowPlayer;
+
+  /*
   let kosticonnect2021 = user.content.data.kosticonnect2021;
   let discord = user.content.data.discord;
-  let gameBlock = utils.content.getParent({ key: game._id });
-  let games = contentLib.query({
-    start: 0,
-    count: 1,
-    query:
-      "data.players = '" +
-      user.content._id +
-      "' and _parentPath = '/content" +
-      gameBlock._path +
-      "'",
-    contentTypes: [app.name + ":game"]
-  });
-  if (games.total > 0)
-    return {
-      error: true,
-      message: "Вы уже записаны на другую игру в этом блоке."
-    };
   if (
     !(
       discord &&
@@ -52,6 +43,7 @@ function validateUser(game: Content<Game>): Valid {
       message: "Ваш билет не позволяет принять участие в этой игре."
     };
   }
+  */
   return {
     error: false
   };

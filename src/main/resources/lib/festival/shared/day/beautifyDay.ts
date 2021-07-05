@@ -2,7 +2,7 @@ import { Content } from "enonic-types/content";
 import { Block } from "../../../../site/content-types/block/block";
 import { getLocations } from "../location/getLocations";
 import { DaySpace, getDaySpace } from "./getDaySpace";
-import { getDaysByUser } from "./getDaysByUser";
+import { getGamesByUser } from "../game/getGamesByUser";
 import { getDayName, getMonthName } from "../../helpers/date";
 import { BlockProcessed } from "../block/beautifyGameBlock";
 import { UserAllData } from "../../../../types/kostiUser";
@@ -29,7 +29,7 @@ function beautifyDay(
       locations: getLocations(day._id),
       festival: getFestivalByDay(day._id),
       games: includeGames
-        ? getDaysByUser(
+        ? getGamesByUser(
             day._id,
             user && user?.data?.roles && user.data.roles.moderator
           )

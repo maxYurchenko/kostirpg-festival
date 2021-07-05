@@ -2,12 +2,12 @@ const userLib = __non_webpack_require__("/lib/userLib");
 const utils = __non_webpack_require__("/lib/util");
 
 import { UserAllData } from "../../../../types/kostiUser";
-import { getItemsList } from "../../shared/getItemsList";
-import { beautifyGame, isGame } from "../game/beautifyGame";
+import { getItemsList } from "../getItemsList";
+import { beautifyGame, isGame } from "./beautifyGame";
 
-export { getDaysByUser };
+export { getGamesByUser };
 
-function getDaysByUser(parent: string, admin?: boolean) {
+function getGamesByUser(parent: string, admin?: boolean) {
   var user: UserAllData = userLib.getCurrentUser();
   let games;
   let result = [];

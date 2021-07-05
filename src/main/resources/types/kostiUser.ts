@@ -9,6 +9,7 @@ export interface UserAllData {
     roles: {
       gameMaster?: boolean;
       moderator?: boolean;
+      moscowGM?: boolean;
     };
   };
 }
