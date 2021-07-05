@@ -21,8 +21,8 @@ dependencies {
   include "com.enonic.xp:lib-portal:${xpVersion}"
   include "com.enonic.xp:lib-context:${xpVersion}"
   include "com.enonic.lib:lib-thymeleaf:2.0.1"
-  include 'com.kostirpg.lib:user:-38adef652e-1'
-  include 'com.kostirpg.lib:cart:-a47f160008-1'
+  implementation 'com.github.maxYurchenko:kostirpg-users:-38adef652e-1'
+  implementation 'com.github.maxYurchenko:kostirpg-store:-a47f160008-1'
   include "com.enonic.lib:lib-util:3.0.0"
 }
 
@@ -30,6 +30,9 @@ repositories {
   mavenLocal()
   jcenter()
   xp.enonicRepo()
+  maven { 
+    url 'https://jitpack.io'
+  }
 }
 
 node {
