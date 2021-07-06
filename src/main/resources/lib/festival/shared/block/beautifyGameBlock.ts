@@ -20,7 +20,7 @@ function beautifyGameBlock(
   let result: BlockProcessed = {
     content: block,
     processed: {
-      date: blockDate.getDate(),
+      date: blockDate.getDate().toFixed(),
       dayName: getDayName(blockDate),
       monthName: getMonthName(blockDate),
       time: {
@@ -61,7 +61,7 @@ interface BlockProcessed {
     };
     epic: boolean;
     space?: LocationSpace;
-    date: number;
+    date: string;
     games?: ProcessedGame[];
   };
 }
