@@ -28,6 +28,8 @@ function getGames(params: GamesFilters) {
   let result: Array<ProcessedGame> = [];
   games.forEach((game) => {
     if (isGame(game)) {
+      if (game.data.players)
+        game.data.players = utils.data.forceArray(game.data.players);
       let gameSpaceAvailable =
         !game.data.players ||
         (game.data.players &&
