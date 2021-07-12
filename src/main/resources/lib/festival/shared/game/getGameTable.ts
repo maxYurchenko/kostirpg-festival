@@ -32,7 +32,8 @@ function countGameTable(game: Content<Game>): string {
     allGamesBlock = getItemsList({
       parentId: block._id,
       parentPathLike: true,
-      type: "game"
+      type: "game",
+      sort: "createdTime ASC"
     });
     if (allGamesBlock) cache.api.put(block._id + "-games", allGamesBlock);
   }

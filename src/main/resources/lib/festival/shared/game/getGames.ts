@@ -23,7 +23,7 @@ function getGames(params: GamesFilters) {
     additionalQuery: query,
     sort: "data.datetime ASC",
     start: params.start ? params.start : 0,
-    count: params.count ? params.count : 10
+    count: params.count ? params.count : -1
   });
   let result: Array<ProcessedGame> = [];
   games.forEach((game) => {
