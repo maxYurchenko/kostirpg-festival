@@ -8,7 +8,24 @@ export { updateEntity };
 
 function updateEntity(entity: Content) {
   let user: UserAllData = userLib.getCurrentUser();
-  return contextLib.runAsAdminAsUser(user.user, function () {
+  if (user)
+    return contextLib.runAsAdminAsUser(user.user, function () {
+      entity = contentLib.modify({
+        key: entity._id,
+        editor: function (c) {
+          c.data = entity.data;
+          return c;
+        }
+      });
+      contentLib.publish({
+        keys: [entity._id],
+        sourceBranch: "master",
+        targetBranch: "draft"
+      });
+      return entity;
+    });
+
+  return contextLib.runAsAdmin(function () {
     entity = contentLib.modify({
       key: entity._id,
       editor: function (c) {

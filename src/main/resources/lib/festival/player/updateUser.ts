@@ -5,6 +5,7 @@ import { User } from "../../../types/user";
 import * as contextLib from "../helpers/contextLib";
 import { updateEntity } from "../shared/updateEntity";
 import { checkTicket } from "../player/checkTicket";
+import { Valid } from "../../../types/validation";
 const cartLib = require("/lib/cartLib");
 const userLib = __non_webpack_require__("/lib/userLib");
 

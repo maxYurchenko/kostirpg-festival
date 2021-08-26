@@ -12,6 +12,7 @@ import * as contextLib from "../helpers/contextLib";
 import { Game } from "../../../site/content-types/game/game";
 import { Block } from "../../../site/content-types/block/block";
 import { UserAllData } from "../../../types/kostiUser";
+import { Valid } from "../../../types/validation";
 
 export { addGame };
 

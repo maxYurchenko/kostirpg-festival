@@ -10,6 +10,7 @@ import { signForGame } from "../player/signForGame";
 import { saveDataToCart } from "../player/saveDataToCart";
 import { Game } from "../../../site/content-types/game/game";
 import { validateTicketGameAllowed } from "../player/validateTicketGameAllowed";
+import { Valid } from "../../../types/validation";
 
 export { bookSpace };
 
@@ -65,7 +66,7 @@ function bookSpace(
     user.content.data.discord &&
     (user.content.data.kosticonnect2021 || user?.data?.roles?.gameMaster)
   ) {
-    let signInResult = signForGame(gameId);
+    let signInResult = signForGame({ gameId: gameId });
     if (!signInResult.error) {
       return { error: false, message: "Вы записаны на игру." };
     }
@@ -75,7 +76,7 @@ function bookSpace(
     user.content.data.discord
   ) {
     updateUser(kosticonnect2021, firstName);
-    let signInResult = signForGame(gameId);
+    let signInResult = signForGame({ gameId: gameId });
     if (!signInResult.error) {
       return { error: false, message: "Вы записаны на игру." };
     }

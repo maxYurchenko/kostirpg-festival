@@ -11,7 +11,7 @@ exports.post = function (req: Request): Response {
   }
   let data: SignForGameRequest = JSON.parse(req.params.data);
   return {
-    body: signForGame(data.gameId),
+    body: signForGame(data),
     contentType: "application/json"
   };
 };

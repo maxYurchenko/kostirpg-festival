@@ -1,6 +1,7 @@
 const userLib = __non_webpack_require__("/lib/userLib");
 
 import { UserAllData } from "../../../types/kostiUser";
+import { Valid } from "../../../types/validation";
 
 export { validateMoscowPlayer };
 

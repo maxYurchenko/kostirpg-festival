@@ -6,18 +6,19 @@ import { UserAllData } from "../../../types/kostiUser";
 import { validateTicketGameAllowed } from "./validateTicketGameAllowed";
 import { validateUserAvailable } from "./validateUserAvailable";
 import { validateMoscowPlayer } from "./validateMoscowPlayer";
+import { User } from "../../../types/user";
+import { validationFailed, Valid } from "../../../types/validation";
 
 export { validateUser };
 
-function validateUser(game: Content<Game>): Valid {
-  let user: UserAllData = userLib.getCurrentUser();
+function validateUser(game: Content<Game>, user: Content<User>): Valid {
   if (!user) return { error: true, message: "Вам нужно войти." };
 
-  let userAvailable = validateUserAvailable(game);
-  if (userAvailable.error) return userAvailable;
+  let userAvailable = validateUserAvailable(game, user);
+  if (validationFailed(userAvailable)) return userAvailable;
 
-  let moscowPlayer = validateMoscowPlayer();
-  if (moscowPlayer.error) return moscowPlayer;
+  //let moscowPlayer = validateMoscowPlayer();
+  //if (moscowPlayer.error) return moscowPlayer;
 
   /*
   let kosticonnect2021 = user.content.data.kosticonnect2021;

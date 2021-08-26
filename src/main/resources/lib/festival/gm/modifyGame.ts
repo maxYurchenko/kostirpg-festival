@@ -5,6 +5,7 @@ import { Content } from "enonic-types/content";
 import { Game } from "../../../site/content-types/game/game";
 import { UserAllData } from "../../../types/kostiUser";
 import * as contextLib from "../helpers/contextLib";
+import { Valid } from "../../../types/validation";
 
 export { modifyGame };
 

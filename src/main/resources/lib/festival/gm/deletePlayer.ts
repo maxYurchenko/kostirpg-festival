@@ -1,25 +1,22 @@
 const contentLib = __non_webpack_require__("/lib/xp/content");
-const userLib = __non_webpack_require__("/lib/userLib");
 const utils = __non_webpack_require__("/lib/util");
 
 import { Game } from "../../../site/content-types/game/game";
-import { UserAllData } from "../../../types/kostiUser";
 import { updateEntity } from "../shared/updateEntity";
-import { Valid } from "../../../types/validation";
 
-export { signOutOfGame };
+export { deletePlayer };
 
-function signOutOfGame(gameId: string): Valid {
-  if (!gameId) {
-    return { error: true };
-  }
-  let user: UserAllData = userLib.getCurrentUser();
+function deletePlayer(gameId?: string, userId?: string) {
+  if (!gameId) return { error: true, message: "Выберите игру." };
+  if (!userId) return { error: true, message: "Выберите игрока." };
+
   let game = contentLib.get<Game>({ key: gameId });
-  if (!game) return { error: true };
+  if (!game) return { error: true, message: "Игра не найдена." };
+
   let players: string[] = game.data.players
     ? utils.data.forceArray(game.data.players)
     : [];
-  let index = players.indexOf(user.content._id);
+  let index = players.indexOf(userId);
   if (index > -1) {
     players.splice(index, 1);
     game.data.players = players;
