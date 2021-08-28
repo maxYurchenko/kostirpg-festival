@@ -45,8 +45,10 @@ function getSignUpUserData(
   adminUser?: boolean
 ): Content<User> | Valid {
   if (!adminUser) {
-    let currentUser: UserAllData = userLib.getCurrentUser();
-    if (currentUser) return currentUser.content;
+    let currentUser = checkUserLoggedIn(params);
+    if (currentUser) {
+      return currentUser;
+    }
   }
 
   let newUser: Valid | Content<User> | null = null;
@@ -62,6 +64,16 @@ function getSignUpUserData(
   if (!newUser)
     return { error: true, message: "Вам нужно войти, или зарегистрироватся." };
   return newUser;
+}
+
+function checkUserLoggedIn(params: SignForGameParams): null | Content<User> {
+  let user: UserAllData = userLib.getCurrentUser();
+  if (!user) return null;
+  if (!user.content.data.phone && params.phone) {
+    user.content.data.phone = params.phone;
+    updateEntity(user.content);
+  }
+  return user.content;
 }
 
 function createNewUserForGame(
