@@ -21,7 +21,7 @@ function getGames(params: GamesFilters) {
   let games = getItemsList({
     type: "game",
     additionalQuery: query,
-    sort: "data.datetime ASC",
+    sort: "data.datetime ASC, createdTime ASC",
     start: params.start ? params.start : 0,
     count: params.count ? params.count : -1
   });
