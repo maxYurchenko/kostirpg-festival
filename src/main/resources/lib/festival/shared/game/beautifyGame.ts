@@ -14,6 +14,7 @@ import { beautifyGameBlock, BlockProcessed } from "../block/beautifyGameBlock";
 import { getGameTable } from "../game/getGameTable";
 import { Block } from "../../../../site/content-types/block/block";
 import { Location } from "../../../../site/content-types/location/location";
+import { beautifyDay, DayProcessed } from "../day/beautifyDay";
 
 export { beautifyGame };
 
@@ -32,11 +33,13 @@ function beautifyGame(game: Content<Game>): ProcessedGame {
   let location = contentLib.get<Location>({
     key: game.data.location
   });
+  let day = location ? utils.content.getParent({ key: location._id }) : null;
   let processedGame: ProcessedGame = {
     content: game,
     processed: {
       block: block ? beautifyGameBlock(block) : null,
       location: location ? location.displayName : null,
+      day: day ? beautifyDay(day, undefined, false) : null,
       additionalInfo: getGameMisc(game),
       url: portal.pageUrl({ id: game._id }),
       intro:
@@ -105,6 +108,7 @@ export interface ProcessedGame {
     seatsReserved: number;
     master: any;
     block: BlockProcessed | null;
+    day: DayProcessed | null;
     location: string | null;
     players: string;
     table: string;
