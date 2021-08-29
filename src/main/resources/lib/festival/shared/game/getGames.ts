@@ -23,7 +23,9 @@ function getGames(params: GamesFilters) {
     additionalQuery: query,
     sort: "data.datetime ASC, createdTime ASC",
     start: params.start ? params.start : 0,
-    count: params.count ? params.count : -1
+    count: params.count ? params.count : -1,
+    parentId: params.parent ? params.parent : undefined,
+    parentPathLike: params.parent ? true : undefined
   });
   let result: Array<ProcessedGame> = [];
   games.forEach((game) => {
@@ -53,4 +55,5 @@ export interface GamesFilters {
   gameSpace?: "free" | "full" | "";
   start?: number;
   count?: number;
+  parent?: string;
 }
