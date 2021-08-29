@@ -38,6 +38,7 @@ function checkGamePlayers(game: Content<Game>) {
     }
   }
   game.data.players = players;
+  game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
   if (updateGame) return updateEntity(game);
   return game;
 }

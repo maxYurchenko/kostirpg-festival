@@ -20,6 +20,7 @@ function deletePlayer(gameId?: string, userId?: string) {
   if (index > -1) {
     players.splice(index, 1);
     game.data.players = players;
+    game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
     updateEntity(game);
   }
   return { error: false };
