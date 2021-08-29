@@ -122,6 +122,7 @@
     </input>
     <input name="spaceAvailable" type="CheckBox">
       <label>Space available</label>
+      <default>checked</default>
     </input>
     <option-set name="gameSystem">
       <label>Game system</label>

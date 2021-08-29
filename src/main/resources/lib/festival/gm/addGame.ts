@@ -60,6 +60,7 @@ function addGame(displayName: string, data: Game): Valid {
     data.master = user.content._id;
     data.datetime = block.data.datetime;
     data.datetimeEnd = block.data.datetimeEnd;
+    data.spaceAvailable = true;
     let game = contentLib.create({
       name: common.sanitize(
         displayName + (epiBlock ? "-" + data.masterName : "")
