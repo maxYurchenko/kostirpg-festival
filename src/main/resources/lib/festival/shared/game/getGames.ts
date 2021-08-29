@@ -18,6 +18,9 @@ function getGames(params: GamesFilters) {
     if (params.theme)
       query += " AND data.theme in ('" + params.theme.join("','") + "')";
   }
+  if (!!params.gameSpace) {
+    query += " AND data.spaceAvailable = '" + params.gameSpace + "'";
+  }
   let games = getItemsList({
     type: "game",
     additionalQuery: query,
@@ -30,19 +33,7 @@ function getGames(params: GamesFilters) {
   let result: Array<ProcessedGame> = [];
   games.forEach((game) => {
     if (isGame(game)) {
-      if (game.data.players)
-        game.data.players = utils.data.forceArray(game.data.players);
-      let gameSpaceAvailable =
-        !game.data.players ||
-        (game.data.players &&
-          game.data.players?.length < parseInt(game.data.maxPlayers));
-      if (params.gameSpace === "free" && gameSpaceAvailable) {
-        result.push(beautifyGame(game));
-      } else if (params.gameSpace === "full" && !gameSpaceAvailable) {
-        result.push(beautifyGame(game));
-      } else if (!params.gameSpace) {
-        result.push(beautifyGame(game));
-      }
+      result.push(beautifyGame(game));
     }
   });
   return result;

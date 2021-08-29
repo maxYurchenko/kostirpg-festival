@@ -35,6 +35,7 @@ function signForGame(params: SignForGameParams, adminUser?: boolean): Valid {
   if (players.indexOf(user._id) === -1) {
     players.push(user._id);
     game.data.players = players;
+    game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
     updateEntity(game);
   }
   return { error: false };

@@ -12,6 +12,8 @@ function saveDataToCart(params: SaveDataToCartRequest) {
   if (params.players.indexOf(params.cartId) === -1) {
     params.players.push(params.cartId);
     params.game.data.players = params.players;
+    params.game.data.spaceAvailable =
+      params.players.length < parseInt(params.game.data.maxPlayers);
     params.game = updateEntity(params.game);
   }
   cartLib.getCart(params.cartId);

@@ -81,6 +81,11 @@ export interface Game {
   exclusive: boolean;
 
   /**
+   * Space available
+   */
+  spaceAvailable: boolean;
+
+  /**
    * Game system
    */
   gameSystem: 
