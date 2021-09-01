@@ -14,7 +14,7 @@ const cache = cacheLib.api.createGlobalCache({
 export { getGameTable, getTablesStartNum };
 
 function getGameTable(game: Content<Game>): string {
-  if (!game) return "0";
+  if (!game) return "1";
   let table = cache.api.getOnly(game._id + "-table");
   if (!table || table === 0) {
     table = countGameTable(game);
@@ -42,10 +42,12 @@ function countGameTable(game: Content<Game>): string {
       result = tables + i;
     }
   }
+  result === 0 ? (result = 1) : (result = result);
   return result.toFixed();
 }
 
 function getTablesStartNum(gameId: string): number {
+  return 1;
   let block = utils.content.getParent({ key: gameId });
   let blockNumber = null;
   let tables = 0;
