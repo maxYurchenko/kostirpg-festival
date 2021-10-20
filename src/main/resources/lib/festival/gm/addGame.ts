@@ -53,7 +53,7 @@ function addGame(displayName: string, data: Game): Valid {
   return contextLib.runAsAdminAsUser(user.user, function () {
     var block = contentLib.get<Block>({ key: data.block });
     if (!block) return null;
-    let epiBlock = !!(block.data.description && block.data.title);
+    let epicBlock = !!(block.data.description && block.data.title);
     if (!user.content.data.firstName) {
       userLib.editUser({ firstName: data.masterName, id: user.content._id });
     }
@@ -63,7 +63,7 @@ function addGame(displayName: string, data: Game): Valid {
     data.spaceAvailable = true;
     let game = contentLib.create({
       name: common.sanitize(
-        displayName + (epiBlock ? "-" + data.masterName : "")
+        displayName + (epicBlock ? "-" + data.masterName : "")
       ),
       parentPath: block._path,
       displayName: displayName,

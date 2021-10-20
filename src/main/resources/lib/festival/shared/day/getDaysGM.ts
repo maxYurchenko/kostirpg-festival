@@ -5,14 +5,22 @@ const contentLib = __non_webpack_require__("/lib/xp/content");
 
 export { getDays };
 
-function getDays(skipBeautify?: boolean, expanded?: string) {
-  let festivals = getFestivals();
+function getDays(
+  skipBeautify?: boolean,
+  expanded?: string,
+  festivalId?: string
+) {
   let id;
   let result = [];
-  if (festivals && festivals[0]) {
-    id = festivals[0]._id;
+  if (!festivalId) {
+    let festivals = getFestivals();
+    if (festivals && festivals[0]) {
+      id = festivals[0]._id;
+    } else {
+      return [];
+    }
   } else {
-    return [];
+    id = festivalId;
   }
   let festivalPage = contentLib.get({ key: id });
   if (!festivalPage) return [];
