@@ -36,7 +36,6 @@
         <option value="day">Day</option> 
         <option value="block">Block</option>
       </config>
-      <default>one</default> 
     </input>
     <input name="blockNumber" type="ComboBox">
       <label>Block number</label>
@@ -48,7 +47,6 @@
         <option value="4">4</option>
         <option value="5">5</option>
       </config>
-      <default>one</default> 
     </input>
     <input name="language" type="ComboBox">
       <label>Predefined language for games</label>
