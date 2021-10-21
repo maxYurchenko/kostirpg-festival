@@ -30,21 +30,27 @@ function getFestivalByDays(arr: Array<DayProcessed> | string[] | string) {
   }
 }
 
-function getFestivalForGM() {
+function getFestivalForGM(festId: string) {
   let user: UserAllData = userLib.getCurrentUser();
   let roles = [];
+  let result: any = [];
   for (let role in user.data?.roles) {
     roles.push(role);
   }
-  let result = getItemsList({
+  let festivals = getItemsList({
     type: "landing",
     additionalQuery:
       " AND data.gameRegisterOpen = 'true' and data.gmRole in ('" +
       roles.join("','") +
       "')"
   });
-  if (!result || result.length < 1) return null;
-  let festival: any = result[0];
-  festival.online = festival.data && festival.data.onlineFestival;
-  return festival;
+  festivals.forEach((festival, index) => {
+    let fest: any = festival;
+    if (!festId && index === 0) fest.active = true;
+    if (festId === fest._id) fest.active = true;
+    fest.online = fest.data && fest.data.onlineFestival;
+    if (fest.active) result.unshift(fest);
+    else result.push(fest);
+  });
+  return result;
 }

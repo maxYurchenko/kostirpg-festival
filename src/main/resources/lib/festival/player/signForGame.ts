@@ -52,6 +52,11 @@ function getSignUpUserData(
     }
   }
 
+  return { error: true, message: "Вам нужно войти, или зарегистрироватся." };
+  /*
+    ######################
+    Uncomment when user can register via game
+    ######################
   let newUser: Valid | Content<User> | null = null;
   let game = contentLib.get<Game>({ key: params.gameId });
 
@@ -65,6 +70,7 @@ function getSignUpUserData(
   if (!newUser)
     return { error: true, message: "Вам нужно войти, или зарегистрироватся." };
   return newUser;
+  */
 }
 
 function checkUserLoggedIn(params: SignForGameParams): null | Content<User> {
