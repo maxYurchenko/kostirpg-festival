@@ -92,14 +92,16 @@
       <label>Master</label>
       <occurrences minimum="1" maximum="1"/>
       <config>
-        <allowContentType>user</allowContentType>
+        <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
+        <allowPath>*</allowPath>
       </config>
     </input>
     <input name="players" type="ContentSelector">
       <label>Players</label>
       <occurrences minimum="0" maximum="50"/>
       <config>
-        <allowContentType>user</allowContentType>
+        <allowContentType>com.myurchenko.kostirpg:user</allowContentType>
+        <allowPath>*</allowPath>
       </config>
     </input>
     <input name="explicit" type="CheckBox">
