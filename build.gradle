@@ -24,7 +24,7 @@ dependencies {
   include "com.enonic.xp:lib-context:${xpVersion}"
   include "com.enonic.lib:lib-thymeleaf:2.0.1"
   implementation 'com.github.maxYurchenko:kostirpg-users:0.1.1'
-  implementation 'com.github.maxYurchenko:kostirpg-store:0.1.1'
+  implementation 'com.github.maxYurchenko:kostirpg-store:0.1.6'
   include "com.enonic.lib:lib-util:3.0.0"
 }
 
