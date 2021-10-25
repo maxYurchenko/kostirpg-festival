@@ -38,7 +38,8 @@ function modifyGame(game: Content<Game>): Valid {
   return {
     error: false,
     message: i18nLib.localize({
-      key: "myGames.form.message.modified"
+      key: "myGames.form.message.modified",
+      locale: "ru"
     }),
     data: game
   };

@@ -21,7 +21,8 @@ function addGame(displayName: string, data: Game): Valid {
     return {
       error: true,
       message: i18nLib.localize({
-        key: "myGames.form.message.noSpace"
+        key: "myGames.form.message.noSpace",
+        locale: "ru"
       })
     };
   }
@@ -29,7 +30,8 @@ function addGame(displayName: string, data: Game): Valid {
     return {
       error: true,
       message: i18nLib.localize({
-        key: "myGames.form.message.gameExists"
+        key: "myGames.form.message.gameExists",
+        locale: "ru"
       })
     };
   }
@@ -37,7 +39,8 @@ function addGame(displayName: string, data: Game): Valid {
     return {
       error: true,
       message: i18nLib.localize({
-        key: "myGames.form.message.alreadyBooked"
+        key: "myGames.form.message.alreadyBooked",
+        locale: "ru"
       })
     };
   }
@@ -45,7 +48,8 @@ function addGame(displayName: string, data: Game): Valid {
     return {
       error: true,
       message: i18nLib.localize({
-        key: "myGames.form.message.registrationClosed"
+        key: "myGames.form.message.registrationClosed",
+        locale: "ru"
       })
     };
   }
@@ -74,7 +78,8 @@ function addGame(displayName: string, data: Game): Valid {
       return {
         error: true,
         message: i18nLib.localize({
-          key: "myGames.form.message.unableToCreate"
+          key: "myGames.form.message.unableToCreate",
+          locale: "ru"
         })
       };
     }
@@ -93,7 +98,8 @@ function addGame(displayName: string, data: Game): Valid {
       return {
         error: true,
         message: i18nLib.localize({
-          key: "myGames.form.message.unableToPublish"
+          key: "myGames.form.message.unableToPublish",
+          locale: "ru"
         })
       };
     }
@@ -101,7 +107,8 @@ function addGame(displayName: string, data: Game): Valid {
       error: false,
       data: game,
       message: i18nLib.localize({
-        key: "myGames.form.message.created"
+        key: "myGames.form.message.created",
+        locale: "ru"
       })
     };
   });

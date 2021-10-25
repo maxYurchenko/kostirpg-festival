@@ -9,7 +9,8 @@ function deleteGame(id: string): Valid {
     return {
       error: true,
       message: i18nLib.localize({
-        key: "myGames.form.message.registrationClosed"
+        key: "myGames.form.message.registrationClosed",
+        locale: "ru"
       })
     };
   }
@@ -19,7 +20,8 @@ function deleteGame(id: string): Valid {
   return {
     error: false,
     message: i18nLib.localize({
-      key: "myGames.form.message.deleted"
+      key: "myGames.form.message.deleted",
+      locale: "ru"
     })
   };
 }

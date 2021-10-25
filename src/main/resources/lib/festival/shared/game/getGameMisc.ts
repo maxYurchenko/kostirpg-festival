@@ -9,19 +9,22 @@ function getGameMisc(game: Content<Game>) {
   if (game.data.kidsGame)
     additionalInfo.push(
       i18nLib.localize({
-        key: "myGames.kidsGame"
+        key: "myGames.kidsGame",
+        locale: "ru"
       })
     );
   if (game.data.explicit)
     additionalInfo.push(
       i18nLib.localize({
-        key: "myGames.explicit"
+        key: "myGames.explicit",
+        locale: "ru"
       })
     );
   if (game.data.beginnerFriendly)
     additionalInfo.push(
       i18nLib.localize({
-        key: "myGames.beginnerFriendly"
+        key: "myGames.beginnerFriendly",
+        locale: "ru"
       })
     );
   return additionalInfo.join(", ");
