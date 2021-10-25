@@ -86,9 +86,9 @@ function getMonthName(date: Date) {
 }
 
 function getDayName(date: Date) {
-  var day = date.getDay();
   return i18n.localize({
-    key: "days.name." + day
+    key: "days.name." + date.getDay(),
+    locale: "ru"
   });
 }
 
