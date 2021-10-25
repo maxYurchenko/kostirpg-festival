@@ -34,15 +34,21 @@ function getFestivalForGM(festId: string) {
   let user: UserAllData = userLib.getCurrentUser();
   let roles = [];
   let result: any = [];
-  for (let role in user.data?.roles) {
-    roles.push(role);
+  let userRoles: any = user.data?.roles;
+  if (userRoles) {
+    for (let role in userRoles) {
+      if (userRoles[role]) {
+        roles.push(role);
+      }
+    }
   }
+  let query =
+    " AND data.gameRegisterOpen = 'true' and data.gmRole in ('" +
+    roles.join("','") +
+    "')";
   let festivals = getItemsList({
     type: "landing",
-    additionalQuery:
-      " AND data.gameRegisterOpen = 'true' and data.gmRole in ('" +
-      roles.join("','") +
-      "')"
+    additionalQuery: query
   });
   festivals.forEach((festival, index) => {
     let fest: any = festival;
