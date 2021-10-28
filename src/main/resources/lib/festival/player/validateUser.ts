@@ -68,6 +68,11 @@ function checkUserInFestivalList(
       message: "Событие не найдено."
     };
   }
+  if (festival.data.freeGames === true) {
+    return {
+      error: false
+    };
+  }
   let playersList = utils.data.forceArray(festival.data.players);
   if (playersList.indexOf(user._id) === -1) {
     return {
