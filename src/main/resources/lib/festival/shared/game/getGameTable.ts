@@ -14,7 +14,6 @@ const cache = cacheLib.api.createGlobalCache({
 export { getGameTable, getTablesStartNum };
 
 function getGameTable(game: Content<Game>): string {
-  if (!game) return "1";
   let table = cache.api.getOnly(game._id + "-table");
   if (!table || table === 0) {
     table = countGameTable(game);
@@ -27,19 +26,16 @@ function countGameTable(game: Content<Game>): string {
   let result = 0;
   let block = utils.content.getParent({ key: game._id });
   let tables = getTablesStartNum(game._id);
-  let allGamesBlock = cache.api.getOnly(block._id + "-games");
-  if (!allGamesBlock || allGamesBlock.length === 0) {
-    allGamesBlock = getItemsList({
-      parentId: block._id,
-      parentPathLike: true,
-      type: "game",
-      sort: "createdTime ASC"
-    });
-    if (allGamesBlock) cache.api.put(block._id + "-games", allGamesBlock);
-  }
+  let allGamesBlock = getItemsList({
+    parentId: block._id,
+    parentPathLike: true,
+    type: "game",
+    sort: "_ts ASC"
+  });
   for (let i = 0; i < allGamesBlock.length; i++) {
     if (game._id === allGamesBlock[i]._id) {
       result = tables + i;
+      break;
     }
   }
   result === 0 ? (result = 1) : (result = result);
