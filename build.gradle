@@ -23,8 +23,8 @@ dependencies {
   include "com.enonic.xp:lib-portal:${xpVersion}"
   include "com.enonic.xp:lib-context:${xpVersion}"
   include "com.enonic.lib:lib-thymeleaf:2.0.1"
-  implementation 'com.github.maxYurchenko:kostirpg-users:0.+'
-  implementation 'com.github.maxYurchenko:kostirpg-store:0.+'
+  implementation 'com.github.maxYurchenko:kostirpg-users:0.1.4'
+  implementation 'com.github.maxYurchenko:kostirpg-store:0.1.19'
   include "com.enonic.lib:lib-util:3.0.0"
 }
 
