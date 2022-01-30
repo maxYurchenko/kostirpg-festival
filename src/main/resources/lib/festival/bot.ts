@@ -38,7 +38,7 @@ function checkUser(params: any) {
 function getUserByTicket(ticketId: string): any {
   if (!ticketId) return null;
   let users = contentLib.query({
-    query: "data.kosticonnect2021 = " + ticketId,
+    query: "data.kosticonnect2022 = " + ticketId,
     start: 0,
     count: 1,
     contentTypes: [app.name + ":user"]

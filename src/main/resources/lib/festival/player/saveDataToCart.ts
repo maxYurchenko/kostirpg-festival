@@ -28,7 +28,7 @@ function saveDataToCart(params: SaveDataToCartRequest) {
     });
     function editor(node: any) {
       node.firstName = params.firstName;
-      node.kosticonnect2021 = params.kosticonnect2021;
+      node.ticketId = params.ticketId;
       node.gameId = params.game._id;
       return node;
     }
@@ -41,5 +41,5 @@ interface SaveDataToCartRequest {
   game: Content<Game>;
   players: string[];
   firstName: string;
-  kosticonnect2021: number;
+  ticketId: number;
 }

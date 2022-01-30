@@ -15,16 +15,16 @@ import { validationFailed, Valid } from "../../../types/validation";
 export { signForGame };
 
 function signForGame(params: SignForGameParams, adminUser?: boolean): Valid {
-  let paramsValid = validateParams(params);
+  const paramsValid = validateParams(params);
   if (paramsValid.error) return paramsValid;
 
-  let user = getSignUpUserData(params, adminUser);
+  const user = getSignUpUserData(params, adminUser);
   if (validationFailed(user)) {
     return user;
   }
 
   let game = contentLib.get<Game>({ key: params.gameId });
-  if (!game) return { error: true };
+  if (!game) return { error: true, message: "Игра не найдена" };
   let userValid = validateUser(game, user);
   if (validationFailed(userValid)) {
     return userValid;
@@ -32,8 +32,8 @@ function signForGame(params: SignForGameParams, adminUser?: boolean): Valid {
   let players: string[] = game.data.players
     ? utils.data.forceArray(game.data.players)
     : [];
-  if (players.indexOf(user._id) === -1) {
-    players.push(user._id);
+  if (players.indexOf(user.content._id) === -1) {
+    players.push(user.content._id);
     game.data.players = players;
     game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
     updateEntity(game);
@@ -44,7 +44,7 @@ function signForGame(params: SignForGameParams, adminUser?: boolean): Valid {
 function getSignUpUserData(
   params: SignForGameParams,
   adminUser?: boolean
-): Content<User> | Valid {
+): UserAllData | Valid {
   if (!adminUser) {
     let currentUser = checkUserLoggedIn(params);
     if (currentUser) {
@@ -73,14 +73,14 @@ function getSignUpUserData(
   */
 }
 
-function checkUserLoggedIn(params: SignForGameParams): null | Content<User> {
+function checkUserLoggedIn(params: SignForGameParams): null | UserAllData {
   let user: UserAllData = userLib.getCurrentUser();
   if (!user) return null;
   if (!user.content.data.phone && params.phone) {
     user.content.data.phone = params.phone;
     updateEntity(user.content);
   }
-  return user.content;
+  return user;
 }
 
 function createNewUserForGame(

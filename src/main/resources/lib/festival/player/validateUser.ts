@@ -14,23 +14,26 @@ import { getFestivalByDay } from "../shared/festival/getFestivalByDay";
 
 export { validateUser };
 
-function validateUser(game: Content<Game>, user: Content<User>): Valid {
+function validateUser(game: Content<Game>, user: UserAllData): Valid {
   if (!user) return { error: true, message: "Вам нужно войти." };
 
-  let userAvailable = validateUserAvailable(game, user);
+  const userAvailable = validateUserAvailable(game, user);
   if (validationFailed(userAvailable)) return userAvailable;
-  return checkUserInFestivalList(game, user);
 
-  //let moscowPlayer = validateMoscowPlayer();
-  //if (moscowPlayer.error) return moscowPlayer;
+  const userInFestivalList = checkUserInFestivalList(game, user);
+  if (
+    !validationFailed(userInFestivalList) &&
+    validateTicketGameAllowed(null, game._id)
+  ) {
+    return userInFestivalList;
+  }
 
-  /*
-  let kosticonnect2021 = user.content.data.kosticonnect2021;
-  let discord = user.content.data.discord;
+  const ticketId = user.content.data.kosticonnect2022;
+  const discord = user.content.data.discord;
   if (
     !(
       discord &&
-      (kosticonnect2021 ||
+      (ticketId ||
         user?.data?.roles?.gameMaster ||
         user?.data?.roles?.moderator)
     )
@@ -39,16 +42,13 @@ function validateUser(game: Content<Game>, user: Content<User>): Valid {
       error: true,
       message: "Вам нужен билет чтоб записатся."
     };
-  if (
-    !kosticonnect2021 ||
-    !validateTicketGameAllowed(kosticonnect2021, game._id)
-  ) {
+  if (!ticketId || !validateTicketGameAllowed(ticketId, game._id)) {
     return {
       error: true,
       message: "Ваш билет не позволяет принять участие в этой игре."
     };
   }
-  */
+
   return {
     error: false
   };
@@ -56,7 +56,7 @@ function validateUser(game: Content<Game>, user: Content<User>): Valid {
 
 function checkUserInFestivalList(
   game: Content<Game>,
-  user: Content<User>
+  user: UserAllData
 ): Valid {
   let festival;
   let gameProcessed = beautifyGame(game);
@@ -74,7 +74,7 @@ function checkUserInFestivalList(
     };
   }
   let playersList = utils.data.forceArray(festival.data.players);
-  if (playersList.indexOf(user._id) === -1) {
+  if (playersList.indexOf(user.content._id) === -1) {
     return {
       error: true,
       message: "У вас нет доступа, чтоб записатся на эту игру."

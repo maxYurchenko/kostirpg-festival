@@ -12,7 +12,7 @@ const userLib = __non_webpack_require__("/lib/userLib");
 export { updateUser };
 
 function updateUser(
-  kosticonnect2021: number,
+  ticketId: number,
   firstName: string
 ): Content<User> | Valid {
   let user: UserAllData = userLib.getCurrentUser();
@@ -22,18 +22,18 @@ function updateUser(
     };
 
   let updateUser = false;
-  if (kosticonnect2021 && !user.content.data.kosticonnect2021) {
-    if (isNaN(kosticonnect2021)) {
+  if (ticketId && !user.content.data.kosticonnect2022) {
+    if (isNaN(ticketId)) {
       return {
         error: true,
         message: "Не правильный номер билета."
       };
     }
-    if (checkTicket(kosticonnect2021)) {
-      user.content.data.kosticonnect2021 = kosticonnect2021;
+    if (checkTicket(ticketId)) {
+      user.content.data.kosticonnect2022 = ticketId;
       updateUser = true;
       contextLib.runAsAdminAsUser(user.user, function () {
-        cartLib.markTicketUsed(kosticonnect2021);
+        cartLib.markTicketUsed(ticketId);
       });
     } else {
       return {

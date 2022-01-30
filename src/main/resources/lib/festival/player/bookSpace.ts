@@ -16,7 +16,7 @@ export { bookSpace };
 
 function bookSpace(
   gameId: string,
-  kosticonnect2021: number,
+  ticketId: number,
   firstName: string,
   cartId: string
 ): Valid {
@@ -36,24 +36,24 @@ function bookSpace(
     players = [];
   }
   let user: UserAllData = userLib.getCurrentUser();
-  if (kosticonnect2021) {
-    if (isNaN(kosticonnect2021)) {
+  if (ticketId) {
+    if (isNaN(ticketId)) {
       return {
         error: true,
         message: "Не правильный номер билета."
       };
     }
-    if (!checkTicket(kosticonnect2021)) {
+    if (!checkTicket(ticketId)) {
       return {
         error: true,
         message: "Такой билет не существует, или уже активирован."
       };
     }
   }
-  if (user && user.data && user.content.data.kosticonnect2021) {
-    kosticonnect2021 = user.content.data.kosticonnect2021;
+  if (user && user.data && user.content.data.kosticonnect2022) {
+    ticketId = user.content.data.kosticonnect2022;
   }
-  if (!validateTicketGameAllowed(kosticonnect2021, game._id)) {
+  if (!validateTicketGameAllowed(ticketId, game._id)) {
     return {
       error: true,
       message: "Ваш билет не позволяет принять участие в этой игре."
@@ -64,43 +64,45 @@ function bookSpace(
     user.content.data &&
     user.content.data.firstName &&
     user.content.data.discord &&
-    (user.content.data.kosticonnect2021 || user?.data?.roles?.gameMaster)
+    (user.content.data.kosticonnect2022 || user?.data?.roles?.gameMaster)
   ) {
     let signInResult = signForGame({ gameId: gameId });
     if (!signInResult.error) {
       return { error: false, message: "Вы записаны на игру." };
     }
-  } else if (
-    (firstName || kosticonnect2021) &&
-    user &&
-    user.content.data.discord
-  ) {
-    updateUser(kosticonnect2021, firstName);
+  } else if ((firstName || ticketId) && user && user.content.data.discord) {
+    updateUser(ticketId, firstName);
     let signInResult = signForGame({ gameId: gameId });
     if (!signInResult.error) {
       return { error: false, message: "Вы записаны на игру." };
     }
-  } else if ((firstName || kosticonnect2021) && user) {
-    updateUser(kosticonnect2021, firstName);
+  } else if ((firstName || ticketId) && user) {
+    updateUser(ticketId, firstName);
     saveDataToCart({
       game: game,
       firstName: firstName,
-      kosticonnect2021: user.content.data.kosticonnect2021
-        ? user.content.data.kosticonnect2021
-        : kosticonnect2021,
+      ticketId: user.content.data.kosticonnect2022
+        ? user.content.data.kosticonnect2022
+        : ticketId,
       players: players,
       cartId: cartId
     });
-    return { error: false };
-  } else if (firstName && kosticonnect2021) {
+    return {
+      error: false,
+      message: "Билет действителен! Осталось только подключить дискорд."
+    };
+  } else if (firstName && ticketId) {
     saveDataToCart({
       game: game,
       firstName: firstName,
-      kosticonnect2021: kosticonnect2021,
+      ticketId: ticketId,
       players: players,
       cartId: cartId
     });
-    return { error: false };
+    return {
+      error: false,
+      message: "Билет действителен! Авторизируйтесь через дискорд."
+    };
   }
   return { error: true };
 }

@@ -3,22 +3,20 @@ const utils = __non_webpack_require__("/lib/util");
 
 import { Content } from "enonic-types/content";
 import { Game } from "../../../site/content-types/game/game";
+import { UserAllData } from "../../../types/kostiUser";
 import { User } from "../../../types/user";
 import { Valid } from "../../../types/validation";
 
 export { validateUserAvailable };
 
-function validateUserAvailable(
-  game: Content<Game>,
-  user: Content<User>
-): Valid {
+function validateUserAvailable(game: Content<Game>, user: UserAllData): Valid {
   let gameBlock = utils.content.getParent({ key: game._id });
   let games = contentLib.query({
     start: 0,
     count: 1,
     query:
       "data.players = '" +
-      user._id +
+      user.content._id +
       "' and _parentPath = '/content" +
       gameBlock._path +
       "'",

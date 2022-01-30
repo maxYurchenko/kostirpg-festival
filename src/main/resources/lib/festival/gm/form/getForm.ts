@@ -13,6 +13,7 @@ const utils = __non_webpack_require__("/lib/util");
 const contentLib = __non_webpack_require__("/lib/xp/content");
 const userLib = __non_webpack_require__("/lib/userLib");
 const cacheLib = require("../../helpers/cache");
+const portal = __non_webpack_require__("/lib/xp/portal");
 
 export { getFormComponent };
 
@@ -49,6 +50,7 @@ function getFormComponent(id?: string) {
     if (content) block = beautifyGameBlock(content, location._id);
   }
   let day = beautifyDay(utils.content.getParent({ key: location._id }));
+  const festival = getFestivalByDay(day.content._id);
   return {
     action: action,
     game: game,
@@ -59,7 +61,10 @@ function getFormComponent(id?: string) {
     virtualTables: getSelectOptions("virtualTable"),
     gameSystems: getSelectOptions("gameSystem"),
     themes: getSelectOptions("theme"),
-    festival: getFestivalByDay(day.content._id),
+    festival: festival,
+    gmRulesUrl: festival.data.gmRules
+      ? portal.pageUrl({ id: festival.data.gmRules })
+      : null,
     day: day,
     hideSelectLanguage:
       block?.content.data.language || day.content.data.language

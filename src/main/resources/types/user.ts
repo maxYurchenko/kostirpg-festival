@@ -66,6 +66,11 @@ export interface User {
   kosticonnect2021?: number;
 
   /**
+   * Kosticonnect 2021
+   */
+  kosticonnect2022?: number;
+
+  /**
    * User image
    */
   userImage?: string;
