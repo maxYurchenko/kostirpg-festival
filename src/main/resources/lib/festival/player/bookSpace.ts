@@ -10,7 +10,7 @@ import { signForGame } from "../player/signForGame";
 import { saveDataToCart } from "../player/saveDataToCart";
 import { Game } from "../../../site/content-types/game/game";
 import { validateTicketGameAllowed } from "../player/validateTicketGameAllowed";
-import { Valid } from "../../../types/validation";
+import { Valid, validationFailed } from "../../../types/validation";
 
 export { bookSpace };
 
@@ -27,6 +27,7 @@ function bookSpace(
   if (!gameSpaceAvailable(gameId)) {
     return { error: true, message: "Мест больше нет." };
   }
+
   let players = game.data.players;
   if (!players) {
     players = [];
@@ -35,6 +36,7 @@ function bookSpace(
   if (!players) {
     players = [];
   }
+
   let user: UserAllData = userLib.getCurrentUser();
   if (ticketId) {
     if (isNaN(ticketId)) {
@@ -53,12 +55,18 @@ function bookSpace(
   if (user && user.data && user.content.data.kosticonnect2022) {
     ticketId = user.content.data.kosticonnect2022;
   }
-  if (!validateTicketGameAllowed(ticketId, game._id)) {
+  const userHasTicket =
+    ticketId || user?.data?.roles.gameMaster || user?.data?.roles.moderator
+      ? true
+      : false;
+
+  if (!validateTicketGameAllowed(ticketId, game._id, userHasTicket)) {
     return {
       error: true,
       message: "Ваш билет не позволяет принять участие в этой игре."
     };
   }
+
   if (
     user &&
     user.content.data &&
@@ -66,14 +74,14 @@ function bookSpace(
     user.content.data.discord &&
     (user.content.data.kosticonnect2022 || user?.data?.roles?.gameMaster)
   ) {
-    let signInResult = signForGame({ gameId: gameId });
-    if (!signInResult.error) {
+    const signInResult = signForGame({ gameId: gameId });
+    if (!validationFailed(signInResult)) {
       return { error: false, message: "Вы записаны на игру." };
     }
   } else if ((firstName || ticketId) && user && user.content.data.discord) {
     updateUser(ticketId, firstName);
-    let signInResult = signForGame({ gameId: gameId });
-    if (!signInResult.error) {
+    const signInResult = signForGame({ gameId: gameId });
+    if (!validationFailed(signInResult)) {
       return { error: false, message: "Вы записаны на игру." };
     }
   } else if ((firstName || ticketId) && user) {
@@ -104,5 +112,5 @@ function bookSpace(
       message: "Билет действителен! Авторизируйтесь через дискорд."
     };
   }
-  return { error: true };
+  return { error: true, message: "Не удалось записать вас на игру" };
 }

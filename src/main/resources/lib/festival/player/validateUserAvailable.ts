@@ -4,7 +4,6 @@ const utils = __non_webpack_require__("/lib/util");
 import { Content } from "enonic-types/content";
 import { Game } from "../../../site/content-types/game/game";
 import { UserAllData } from "../../../types/kostiUser";
-import { User } from "../../../types/user";
 import { Valid } from "../../../types/validation";
 
 export { validateUserAvailable };

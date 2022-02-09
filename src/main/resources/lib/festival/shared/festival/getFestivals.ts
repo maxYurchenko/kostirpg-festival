@@ -7,6 +7,6 @@ export { getFestivals };
 function getFestivals() {
   return getItemsList({
     type: "landing",
-    additionalQuery: " AND data.gameRegisterOpen = 'true'"
+    additionalQuery: " AND data.gmRegisterOpen = 'true'"
   });
 }

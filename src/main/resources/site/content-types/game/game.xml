@@ -137,28 +137,28 @@
               <label>Dropdown</label>
               <occurrences minimum="1" maximum="1"/>
               <config>
+                <option class="primary" value="enoa">ЭНОА</option>
+                <option class="primary" value="cavalry">Кавалерия</option>
+                <option class="primary" value="trailOfCthulhu">Ктулху (Trail of Cthulhu)</option>
+                <option class="primary" value="shinobi">Шиноби</option>
+                <option class="primary" value="skeletons">Чмошная Скелетная Пехота</option>
+                <option class="primary" value="coc">Call of Cthulhu (Зов Ктулху)</option>
+                <option class="primary" value="coriolis">Coriolis (Кориолси)</option>
+                <option class="primary" value="cyberpunk2020">Cyberpunk 2020</option>
+                <option class="primary" value="cyberpunkRed">Cyberpunk RED</option>
                 <option class="primary" value="dnd5">Dungeons &amp; Dragons 5e</option>
-                <option class="primary" value="vtm20">Vampire: The Masquerade V20 (Вапмирский Маскарад Классические правила)</option>
-                <option class="primary" value="vtm5">Vampire: The Masquerade 5th Edition</option>
+                <option class="primary" value="fate">FATE</option>
+                <option class="primary" value="morkBorg">Mörk Borg</option>
+                <option class="primary" value="mutanYearZero">Mutan Year Zero (Мутанты - Точка Отчета)</option>
                 <option class="primary" value="pathfinder1">Pathfinder 1e</option>
                 <option class="primary" value="pathfinder2">Pathfinder 2e</option>
                 <option class="primary" value="shadowrun">Shadowrun</option>
-                <option class="primary" value="cyberpunkRed">Cyberpunk RED</option>
-                <option class="primary" value="cyberpunk2020">Cyberpunk 2020</option>
+                <option class="primary" value="talesFromTheLoop">Tales from the Loop (Тайны Эхосферы)</option>
+                <option class="primary" value="vtm20">Vampire: The Masquerade V20 (Вапмирский Маскарад Классические правила)</option>
+                <option class="primary" value="vtm5">Vampire: The Masquerade 5th Edition</option>
                 <option class="primary" value="wfrp">Warhammer Fantasy Role Play</option>
                 <option class="primary" value="w40kwg">Warhammer 40k Wrath &amp; Glory</option>
-                <option class="primary" value="coc">Call of Cthulhu (Зов Ктулху)</option>
-                <option class="primary" value="coriolis">Coriolis (Кориолси)</option>
-                <option class="primary" value="talesFromTheLoop">Tales from the Loop (Тайны Эхосферы)</option>
-                <option class="primary" value="mutanYearZero">Mutan Year Zero (Мутанты - Точка Отчета)</option>
-                <option class="primary" value="bladesInTheDark">Blades in the Dark (Клинки во Тьме)</option>
-                <option class="primary" value="morkBorg">Mörk Borg</option>
-                <option class="primary" value="shinobi">Шиноби</option>
-                <option class="primary" value="fate">FATE</option>
-                <option class="primary" value="trailOfCthulhu">Ктулху (Trail of Cthulhu)</option>
-                <option class="primary" value="enoa">ЭНОА</option>
-                <option class="primary" value="cavalry">Кавалерия</option>
-                <option class="primary" value="skeletons">Чмошная Скелетная Пехота</option>
+                <option class="primary" value="yky">YKY</option>
                 <option value="13Age">13th Age</option>
                 <option value="7Sea">7th Sea</option>
                 <option value="achtungCthulhu">Achtung! Cthulhu 2d20</option>
@@ -168,16 +168,19 @@
                 <option value="aliceIsMissing">Alice is Missing</option>
                 <option value="alien">Alien RPG</option>
                 <option value="alteredCarbon">Altered Carbon</option>
+                <option value="arheterica">Архетерика</option>
                 <option value="apocalypseWorld">Apocalypse World</option>
                 <option value="astonishingSwordsmenSorcerersOfHyboria">Astonishing Swordsmen &amp; Sorcerers of Hyboria</option>
                 <option value="bandOfBlades">Band of Blades</option>
                 <option value="battleTech">Battle Tech RPG</option>
                 <option value="bigEyesSmallMouth">Big Eyes, Small Mouth</option>
                 <option value="blackVoid">Black Void</option>
+                <option value="bladesInTheDark">Blades in the Dark (Клинки во Тьме)</option>
                 <option value="brokenCompass">Broken Compass</option>
                 <option value="burntBryte">Burnt Bryte</option>
                 <option value="businessWizards">Business Wizards</option>
                 <option value="capers">Capers</option>
+                <option value="capharnaum">Capharnaum</option>
                 <option value="carbon2185">Carbon 2185</option>
                 <option value="chroniclesOfDarkness">Chronicles of Darkness</option>
                 <option value="cityOfMist">City of Mist</option>
@@ -220,8 +223,10 @@
                 <option value="gurps">GURPS</option>
                 <option value="honeyHeist">Honey Heist</option>
                 <option value="hope">HOPE</option>
+                <option value="h0">H0</option>
                 <option value="infinity">Infinity</option>
                 <option value="ironsworn">Ironsworn</option>
+                <option value="intoTheOdd">Into The Odd</option>
                 <option value="johnCarter">John Carter</option>
                 <option value="judgeDredd">Judge Dredd</option>
                 <option value="kidsOnBikes">Kids on Bikes</option>
@@ -230,12 +235,15 @@
                 <option value="kult">KULT</option>
                 <option value="labyrinthLord">Labyrinth Lord</option>
                 <option value="lancer">Lancer</option>
+                <option value="lasersAndFeelings">Lasers and Feelings</option>
                 <option value="lotfp">Lamentations of the Flame Princess</option>
                 <option value="legendOfTheFiveRings4">Legend of the Five Rings 4th Edition</option>
                 <option value="legendOfTheFiveRings5">Legend of the Five Rings 5th Edition</option>
                 <option value="marverSuperHeroes">Marver Super Heroes</option>
                 <option value="mindjammer">Mindjammer</option>
+                <option value="maus">Mausritter</option>
                 <option value="mothership">Mothership</option>
+                <option value="mouseGuard">Mouse Guard</option>
                 <option value="mutantChronicles">Mutant Chronicles</option>
                 <option value="mutantСrawlClassics">Mutant Сrawl Classics</option>
                 <option value="mutantsAndMasterminds">Mutants and Masterminds (3e)</option>
@@ -253,6 +261,7 @@
                 <option value="owodWerewolf">oWoD: Werewolf: The Apocalypse</option>
                 <option value="owodWraith">oWoD: Wraith: The Oblivion</option>
                 <option value="palladium">Palladium</option>
+                <option value="pistolPackingBondageNuns">Pistol Packing Bondage Nuns</option>
                 <option value="pbta">Powered by the Apocalypse RPG (ПБТА)</option>
                 <option value="rifts">Rifts</option>
                 <option value="runeQuest">Rune Quest</option>
@@ -281,6 +290,7 @@
                 <option value="witcher">The Witcher TTRPG (Ведьмак)</option>
                 <option value="torgEternity">Torg Eternity</option>
                 <option value="traveller">Traveller</option>
+                <option value="trophy">Trophy</option>
                 <option value="tunnelGoons">Tunnel Goons</option>
                 <option value="urbanShadows">Urban Shadows</option>
                 <option value="vaesen">Vaesen</option>

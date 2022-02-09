@@ -5,6 +5,7 @@ import { getGamesByUser } from "./shared/game/getGamesByUser";
 import { getGamesByPlayer } from "./shared/game/getGamesByPlayer";
 import { checkTicket } from "./player/checkTicket";
 import { bookSpace } from "./player/bookSpace";
+import { updateUser } from "./player/updateUser";
 
 exports.signForGame = signForGame;
 exports.signOutOfGame = signOutOfGame;
@@ -13,3 +14,4 @@ exports.getGamesByUser = getGamesByUser;
 exports.getGamesByPlayer = getGamesByPlayer;
 exports.checkTicket = checkTicket;
 exports.bookSpace = bookSpace;
+exports.updateUser = updateUser;

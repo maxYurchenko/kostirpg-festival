@@ -1,13 +1,13 @@
 import { Content } from "enonic-types/content";
-import { Game } from "../../site/content-types/game/game";
+import { Game } from "../../../site/content-types/game/game";
 
 const cartLib = require("/lib/cartLib");
 const utils = __non_webpack_require__("/lib/util");
 const contentLib = __non_webpack_require__("/lib/xp/content");
-import * as contextLib from "./helpers/contextLib";
+import * as contextLib from "./../helpers/contextLib";
 
-import { getTablesStartNum } from "./shared/game/getGameTable";
-import { updateEntity } from "./shared/updateEntity";
+import { getTablesStartNum } from "./../shared/game/getGameTable";
+import { updateEntity } from "./../shared/updateEntity";
 
 export { checkUser, getGames, getEvents };
 

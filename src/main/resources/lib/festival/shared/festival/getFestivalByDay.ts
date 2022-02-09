@@ -43,7 +43,7 @@ function getFestivalForGM(festId: string) {
     }
   }
   let query =
-    " AND data.gameRegisterOpen = 'true' and data.gmRole in ('" +
+    " AND data.gmRegisterOpen = 'true' and data.gmRole in ('" +
     roles.join("','") +
     "')";
   let festivals = getItemsList({

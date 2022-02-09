@@ -7,13 +7,19 @@ export { validateTicketGameAllowed };
 
 function validateTicketGameAllowed(
   ticketId: number | null,
-  gameId: string
+  gameId: string,
+  userHasTicket?: boolean
 ): boolean {
-  let game = contentLib.get<Game>({ key: gameId });
+  const game = contentLib.get<Game>({ key: gameId });
+
   if (!game) return false;
-  if (!game.data.exclusive) return true;
+  const regularTicket = !game.data.exclusive && userHasTicket ? true : false;
+  if (regularTicket) return true;
+
   if (!ticketId) return false;
-  let cart = cartLib.getCartByQr(ticketId);
+
+  const cart = cartLib.getCartByQr(ticketId);
   if (cart.legendary) return true;
+
   return false;
 }
