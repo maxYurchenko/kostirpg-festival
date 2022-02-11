@@ -20,7 +20,8 @@ function getGamesByPlayer(parent: string, admin?: boolean) {
       user.content._id +
       "' OR data.master = '" +
       user.content._id +
-      "')"
+      "')",
+    sort: "data.datetime ASC"
   });
   for (var i = 0; i < games.length; i++) {
     let game = games[i];
