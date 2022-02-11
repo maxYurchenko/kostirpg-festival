@@ -23,7 +23,7 @@ export interface Game {
   /**
    * Max players
    */
-  maxPlayers: "4" | "5" | "6" | "7" | "8";
+  maxPlayers: "3" | "4" | "5" | "6" | "7" | "8";
 
   /**
    * Pregens

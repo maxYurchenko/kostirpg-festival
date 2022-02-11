@@ -25,16 +25,17 @@ const cache = cacheLib.api.createGlobalCache({
 });
 
 function beautifyGame(game: Content<Game>): ProcessedGame {
-  let system: any = game.data.gameSystem;
-  let systemText = system[system._selected].system;
-  let block: Content<Block> | null = contentLib.get<Block>({
+  const system: any = game.data.gameSystem;
+  const systemText = system[system._selected].system;
+  const block: Content<Block> | null = contentLib.get<Block>({
     key: game.data.block
   });
-  let location = contentLib.get<Location>({
+  const location = contentLib.get<Location>({
     key: game.data.location
   });
-  let day = location ? utils.content.getParent({ key: location._id }) : null;
-  let processedGame: ProcessedGame = {
+  const user = userLib.getCurrentUser();
+  const day = location ? utils.content.getParent({ key: location._id }) : null;
+  const processedGame: ProcessedGame = {
     content: game,
     processed: {
       block: block ? beautifyGameBlock(block) : null,
@@ -54,6 +55,12 @@ function beautifyGame(game: Content<Game>): ProcessedGame {
         text: systemText
       },
       players: getPlayers(),
+      currUserPlays:
+        game?.data?.players &&
+        (game?.data?.players.indexOf(user?.content?._id) !== -1 ||
+          game?.data?.master === user?.content?._id)
+          ? true
+          : false,
       table: getGameTable(game)
     }
   };
@@ -106,12 +113,13 @@ export interface ProcessedGame {
     url: string;
     intro: string;
     seatsReserved: number;
-    master: any;
+    master: Content<User> | null;
     block: BlockProcessed | null;
     day: DayProcessed | null;
     location: string | null;
     players: string;
     table: string;
+    currUserPlays: boolean;
   };
 }
 

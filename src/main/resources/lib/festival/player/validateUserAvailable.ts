@@ -14,9 +14,11 @@ function validateUserAvailable(game: Content<Game>, user: UserAllData): Valid {
     start: 0,
     count: 1,
     query:
-      "data.players = '" +
+      "(data.players = '" +
       user.content._id +
-      "' and _parentPath = '/content" +
+      "' OR data.master = '" +
+      user.content._id +
+      "') and _parentPath = '/content" +
       gameBlock._path +
       "'",
     contentTypes: [app.name + ":game"]

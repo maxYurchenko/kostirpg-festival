@@ -1,4 +1,5 @@
 import { Content } from "enonic-types/content";
+import { botApiResponse } from "../../../types/botApiResponse";
 import { User } from "../../../types/user";
 import { getGamesByUser } from "../shared/game/getGamesByUser";
 import { getItemsList } from "../shared/getItemsList";
@@ -16,7 +17,7 @@ interface Master {
   gamesAmount: number;
 }
 
-function listMasters(withGamesOnly: boolean): Master[] {
+function listMasters(withGamesOnly: boolean): botApiResponse {
   const masters = authLib.getMembers("role:gamemaster");
   const mastersInFestival: Master[] = [];
   const currentFestival = "d437d64f-1d18-43c2-ae7b-397c28a7344f";
@@ -40,5 +41,5 @@ function listMasters(withGamesOnly: boolean): Master[] {
     });
   });
 
-  return mastersInFestival;
+  return { success: true, data: mastersInFestival };
 }

@@ -7,7 +7,11 @@ import { beautifyGame, isGame } from "./beautifyGame";
 
 export { getGamesByUser };
 
-function getGamesByUser(parent: string, admin?: boolean) {
+function getGamesByUser(
+  parent?: string,
+  admin?: boolean,
+  skipBeautify?: boolean
+) {
   var user: UserAllData = userLib.getCurrentUser();
   let games;
   let result = [];
@@ -29,7 +33,8 @@ function getGamesByUser(parent: string, admin?: boolean) {
   for (var i = 0; i < games.length; i++) {
     let game = games[i];
     if (!isGame(game)) continue;
-    result.push(beautifyGame(game));
+    if (skipBeautify) result.push(game);
+    else result.push(beautifyGame(game));
   }
   return result;
 }

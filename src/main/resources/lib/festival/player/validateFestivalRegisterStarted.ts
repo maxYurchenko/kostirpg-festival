@@ -6,7 +6,7 @@ import { getItemsList } from "../shared/getItemsList";
 
 const cartLib = require("/lib/cartLib");
 
-const defaultTurboGames = 5;
+const defaultTurboGames = 2;
 
 export default validateFestivalRegisterStarted;
 
