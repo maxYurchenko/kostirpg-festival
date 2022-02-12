@@ -54,7 +54,7 @@ function beautifyGame(game: Content<Game>): ProcessedGame {
         localizable: system._selected === "select",
         text: systemText
       },
-      players: getPlayers(),
+      players: getPlayers(game.data.players),
       currUserPlays:
         game?.data?.players &&
         game?.data?.players.indexOf(user?.content?._id) !== -1

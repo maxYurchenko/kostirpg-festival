@@ -30,7 +30,7 @@ function countGameTable(game: Content<Game>): string {
     parentId: block._id,
     parentPathLike: true,
     type: "game",
-    sort: "_ts ASC"
+    sort: "displayName ASC"
   });
   for (let i = 0; i < allGamesBlock.length; i++) {
     if (game._id === allGamesBlock[i]._id) {
@@ -43,13 +43,12 @@ function countGameTable(game: Content<Game>): string {
 }
 
 function getTablesStartNum(gameId: string): number {
-  return 1;
   let block = utils.content.getParent({ key: gameId });
   let blockNumber = null;
   let tables = 0;
   if (block && block.data && block.data.blockNumber) {
     blockNumber = parseInt(block.data.blockNumber);
   }
-  blockNumber && blockNumber % 2 === 1 ? (tables = 1) : (tables = 25);
+  blockNumber && blockNumber % 2 === 1 ? (tables = 1) : (tables = 30);
   return tables;
 }
