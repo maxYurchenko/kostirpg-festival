@@ -7,6 +7,7 @@ import { checkTicket } from "./player/checkTicket";
 import { bookSpace } from "./player/bookSpace";
 import { updateUser } from "./player/updateUser";
 import { getFestivalsForPlayer } from "./shared/festival/getFestivalsForPlayer";
+import { assignTicket } from "./player/assignTicket";
 
 exports.signForGame = signForGame;
 exports.signOutOfGame = signOutOfGame;
@@ -17,3 +18,4 @@ exports.checkTicket = checkTicket;
 exports.bookSpace = bookSpace;
 exports.updateUser = updateUser;
 exports.getFestivalsForPlayer = getFestivalsForPlayer;
+exports.assignTicket = assignTicket;

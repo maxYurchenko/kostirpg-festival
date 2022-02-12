@@ -10,6 +10,7 @@ export interface UserAllData {
       gameMaster?: boolean;
       moderator?: boolean;
       moscowGM?: boolean;
+      turbomaster?: boolean;
     };
   };
 }

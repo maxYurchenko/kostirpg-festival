@@ -65,6 +65,7 @@ function addGame(displayName: string, data: Game): Valid {
     data.datetime = block.data.datetime;
     data.datetimeEnd = block.data.datetimeEnd;
     data.spaceAvailable = true;
+    data.exclusive = user.data?.roles.turbomaster ? true : false;
     let game = contentLib.create({
       name: common.sanitize(
         displayName + (epicBlock ? "-" + data.masterName : "")

@@ -57,10 +57,10 @@ function beautifyGame(game: Content<Game>): ProcessedGame {
       players: getPlayers(),
       currUserPlays:
         game?.data?.players &&
-        (game?.data?.players.indexOf(user?.content?._id) !== -1 ||
-          game?.data?.master === user?.content?._id)
+        game?.data?.players.indexOf(user?.content?._id) !== -1
           ? true
           : false,
+      currUserMaster: game?.data?.master === user?.content?._id ? true : false,
       table: getGameTable(game)
     }
   };
@@ -120,6 +120,7 @@ export interface ProcessedGame {
     players: string;
     table: string;
     currUserPlays: boolean;
+    currUserMaster: boolean;
   };
 }
 

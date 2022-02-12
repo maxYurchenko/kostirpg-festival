@@ -20,6 +20,7 @@ function modifyGame(game: Content<Game>): Valid {
       game.data.master = c.data.master;
       game.data.block = c.data.block ? c.data.block : game.data.block;
       game.data.datetime = c.data.datetime;
+      game.data.exclusive = user.data?.roles.turbomaster ? true : false;
       c.data = game.data;
       c.data.players = players;
       return c;
