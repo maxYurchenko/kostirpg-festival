@@ -27,7 +27,7 @@ function assignTicket(ticketId: number): Valid {
   return {
     error: false,
     message: `Поключен ${
-      cart.legendary ? "Турбо" : "Обычный"
+      cart.legendary ? "Турбо" : "Онлайн"
     } билет Kosticonnect2022`
   };
 }

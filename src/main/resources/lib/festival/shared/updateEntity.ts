@@ -6,7 +6,7 @@ const userLib = __non_webpack_require__("/lib/userLib");
 
 export { updateEntity };
 
-function updateEntity(entity: Content) {
+function updateEntity(entity: Content): Content<any> {
   let user: UserAllData = userLib.getCurrentUser();
   if (user)
     return contextLib.runAsAdminAsUser(user.user, function () {

@@ -14,7 +14,7 @@ export { updateUser };
 function updateUser(
   ticketId: number,
   firstName: string
-): Content<User> | Valid {
+): Valid | Content<User> {
   let user: UserAllData = userLib.getCurrentUser();
   if (!(user && user.data))
     return {
@@ -22,7 +22,10 @@ function updateUser(
     };
 
   let updateUser = false;
-  if (ticketId && !user.content.data.kosticonnect2022) {
+  if (
+    ticketId &&
+    !(user.content.data.kosticonnect2022 || user.data.roles.gameMaster)
+  ) {
     if (isNaN(ticketId)) {
       return {
         error: true,
@@ -49,7 +52,10 @@ function updateUser(
     user.content.data.firstName = firstName;
     updateUser = true;
   }
-  let updatedUser;
-  if (updateUser) updatedUser = updateEntity(user.content);
-  return updatedUser;
+
+  if (updateUser) {
+    return updateEntity(user.content);
+  }
+
+  return { error: false };
 }

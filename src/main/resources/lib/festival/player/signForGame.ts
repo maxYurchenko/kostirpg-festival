@@ -32,7 +32,13 @@ function signForGame(params: SignForGameParams, adminUser?: boolean): Valid {
   let players: string[] = game.data.players
     ? utils.data.forceArray(game.data.players)
     : [];
-  if (players.indexOf(user.content._id) === -1) {
+  if (params.cartId && players.indexOf(params.cartId) !== -1) {
+    players.splice(players.indexOf(params.cartId), 1);
+    players.push(user.content._id);
+    game.data.players = players;
+    game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
+    updateEntity(game);
+  } else if (players.indexOf(user.content._id) === -1) {
     players.push(user.content._id);
     game.data.players = players;
     game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
@@ -125,4 +131,5 @@ interface SignForGameParams {
   email?: string;
   phone?: string;
   username?: string;
+  cartId?: string;
 }

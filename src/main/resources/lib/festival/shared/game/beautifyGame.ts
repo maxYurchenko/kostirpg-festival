@@ -38,7 +38,9 @@ function beautifyGame(game: Content<Game>): ProcessedGame {
   const processedGame: ProcessedGame = {
     content: game,
     processed: {
-      block: block ? beautifyGameBlock(block) : null,
+      block: block
+        ? beautifyGameBlock(block, undefined, game.data.language)
+        : null,
       location: location ? location.displayName : null,
       day: day ? beautifyDay(day, undefined, false) : null,
       additionalInfo: getGameMisc(game),

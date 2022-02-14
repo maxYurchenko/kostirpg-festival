@@ -8,6 +8,7 @@ import { bookSpace } from "./player/bookSpace";
 import { updateUser } from "./player/updateUser";
 import { getFestivalsForPlayer } from "./shared/festival/getFestivalsForPlayer";
 import { assignTicket } from "./player/assignTicket";
+import { saveGameRedirect } from "./player/saveGameRedirect";
 
 exports.signForGame = signForGame;
 exports.signOutOfGame = signOutOfGame;
@@ -19,3 +20,4 @@ exports.bookSpace = bookSpace;
 exports.updateUser = updateUser;
 exports.getFestivalsForPlayer = getFestivalsForPlayer;
 exports.assignTicket = assignTicket;
+exports.saveGameRedirect = saveGameRedirect;

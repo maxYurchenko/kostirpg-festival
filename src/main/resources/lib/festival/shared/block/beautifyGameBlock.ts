@@ -8,7 +8,8 @@ export { beautifyGameBlock, BlockProcessed };
 
 function beautifyGameBlock(
   block: Content<Block>,
-  locationId?: string
+  locationId?: string,
+  lang: string = "ru"
 ): BlockProcessed {
   let duration;
   let hoursDuration;
@@ -21,8 +22,8 @@ function beautifyGameBlock(
     content: block,
     processed: {
       date: blockDate.getDate().toFixed(),
-      dayName: getDayName(blockDate),
-      monthName: getMonthName(blockDate),
+      dayName: getDayName(blockDate, lang),
+      monthName: getMonthName(blockDate, lang),
       time: {
         start: getTime(blockDate),
         end: block.data.datetimeEnd

@@ -3,7 +3,8 @@ const moment = require("./moment");
 
 export { getMonthName, getDayName, getTime };
 
-function getMonthName(date: Date) {
+function getMonthName(date: Date, langParam: string = "ru") {
+  const lang = langParam === "ua" ? "uk" : langParam;
   let month = date.getMonth();
   let monthName = "";
 
@@ -11,73 +12,73 @@ function getMonthName(date: Date) {
     case 0:
       monthName = i18n.localize({
         key: "months.jan.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 1:
       monthName = i18n.localize({
         key: "months.feb.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 2:
       monthName = i18n.localize({
         key: "months.mar.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 3:
       monthName = i18n.localize({
         key: "months.apr.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 4:
       monthName = i18n.localize({
         key: "months.may.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 5:
       monthName = i18n.localize({
         key: "months.jun.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 6:
       monthName = i18n.localize({
         key: "months.jul.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 7:
       monthName = i18n.localize({
         key: "months.aug.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 8:
       monthName = i18n.localize({
         key: "months.sep.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 9:
       monthName = i18n.localize({
         key: "months.oct.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 10:
       monthName = i18n.localize({
         key: "months.nov.date",
-        locale: "ru"
+        locale: lang
       });
       break;
     case 11:
       monthName = i18n.localize({
         key: "months.dec.date",
-        locale: "ru"
+        locale: lang
       });
       break;
   }
@@ -85,10 +86,11 @@ function getMonthName(date: Date) {
   return monthName;
 }
 
-function getDayName(date: Date) {
+function getDayName(date: Date, langParam: string = "ru") {
+  const lang = langParam === "ua" ? "uk" : langParam;
   return i18n.localize({
     key: "days.name." + date.getDay(),
-    locale: "ru"
+    locale: lang
   });
 }
 
