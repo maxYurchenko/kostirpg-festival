@@ -13,6 +13,9 @@ function getGames(params: GamesFilters) {
   if (!!params.system) {
     query += " and data.gameSystem.select.system = '" + params.system + "'";
   }
+  if (!!params.language) {
+    query += " and data.language = '" + params.language + "'";
+  }
   if (!!params.theme) {
     params.theme = utils.data.forceArray(params.theme);
     if (params.theme)
@@ -47,4 +50,5 @@ export interface GamesFilters {
   start?: number;
   count?: number;
   parent?: string;
+  language?: string;
 }
