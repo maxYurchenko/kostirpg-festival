@@ -6,6 +6,7 @@ import { Game } from "../../../site/content-types/game/game";
 import { UserAllData } from "../../../types/kostiUser";
 import * as contextLib from "../helpers/contextLib";
 import { Valid } from "../../../types/validation";
+const utils = __non_webpack_require__("/lib/util");
 
 export { modifyGame };
 
@@ -21,6 +22,9 @@ function modifyGame(game: Content<Game>): Valid {
       game.data.block = c.data.block ? c.data.block : game.data.block;
       game.data.datetime = c.data.datetime;
       game.data.exclusive = user.data?.roles.turbomaster ? true : false;
+      game.data.spaceAvailable =
+        !players ||
+        utils.data.forceArray(players).length < parseInt(game.data.maxPlayers);
       c.data = game.data;
       c.data.players = players;
       return c;

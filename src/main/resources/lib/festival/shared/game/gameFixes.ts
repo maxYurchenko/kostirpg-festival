@@ -6,7 +6,12 @@ import * as contextLib from "../../helpers/contextLib";
 import { getListOfGames } from "../../player/getListOfGames";
 import { updateEntity } from "../../shared/updateEntity";
 
-export { checkPlayersCartsBooking, checkGamePlayers, updateGameDate };
+export {
+  checkPlayersCartsBooking,
+  checkGamePlayers,
+  updateGameDate,
+  fixAllGamesSpace
+};
 
 function checkPlayersCartsBooking() {
   utils.log("fixing booking");
@@ -17,6 +22,24 @@ function checkPlayersCartsBooking() {
     });
   });
   utils.log("finished");
+}
+
+function fixAllGamesSpace() {
+  utils.log("fixing games space");
+  contextLib.runAsAdmin(function () {
+    let games = getListOfGames();
+    games.forEach((game) => {
+      fixGameSpace(game);
+    });
+  });
+  utils.log("finished");
+}
+
+function fixGameSpace(game: Content<Game>) {
+  if (!game.data.players) game.data.players = [];
+  let players = utils.data.forceArray(game.data.players);
+  game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
+  return updateEntity(game);
 }
 
 function checkGamePlayers(game: Content<Game>) {
@@ -30,7 +53,7 @@ function checkGamePlayers(game: Content<Game>) {
     if (!(user && user.type === app.name + ":user")) {
       let index = players.indexOf(players[i]);
       if (index > -1) {
-        utils.log("found wrong player for game " + game._id);
+        utils.log("found wrong player " + players[i] + " for game " + game._id);
         players.splice(index, 1);
         updateGame = true;
         i--;
