@@ -10,13 +10,13 @@ function deletePlayer(gameId?: string, userId?: string) {
   if (!gameId) return { error: true, message: "Выберите игру." };
   if (!userId) return { error: true, message: "Выберите игрока." };
 
-  let game = contentLib.get<Game>({ key: gameId });
+  const game = contentLib.get<Game>({ key: gameId });
   if (!game) return { error: true, message: "Игра не найдена." };
 
-  let players: string[] = game.data.players
+  const players: string[] = game.data.players
     ? utils.data.forceArray(game.data.players)
     : [];
-  let index = players.indexOf(userId);
+  const index = players.indexOf(userId);
   if (index > -1) {
     players.splice(index, 1);
     game.data.players = players;

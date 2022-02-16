@@ -1,7 +1,7 @@
 import { Content } from "enonic-types/content";
-import { botApiResponse } from "../../../types/botApiResponse";
 import { Cart } from "../../../types/cart";
 import { User } from "../../../types/user";
+import { Valid } from "../../../types/validation";
 import { updateEntity } from "../shared/updateEntity";
 import * as contextLib from "./../helpers/contextLib";
 
@@ -13,16 +13,16 @@ interface reqParams {
   ticketId?: number;
 }
 
-function checkUser(params?: reqParams): botApiResponse {
+function checkUser(params?: reqParams): Valid {
   if (!params) {
-    return { success: false, message: "Необходим билет и дискорд!" };
+    return { error: true, message: "Необходим билет и дискорд!" };
   }
   const { ticketId, discordId } = params;
-  if (!ticketId) return { success: false, message: "Необходим билет!" };
-  if (!discordId) return { success: false, message: "Необходим дискорд!" };
+  if (!ticketId) return { error: true, message: "Необходим билет!" };
+  if (!discordId) return { error: true, message: "Необходим дискорд!" };
 
   let cart: Cart = cartLib.getCartByQr(ticketId);
-  if (!cart) return { success: false, message: "Билет не найден." };
+  if (!cart) return { error: true, message: "Билет не найден." };
 
   let user = getUserByTicket(ticketId);
   if (user) {
@@ -32,17 +32,17 @@ function checkUser(params?: reqParams): botApiResponse {
         if (user) updateEntity(user);
       });
     }
-    return { success: true, data: { turbo: cart.legendary } };
+    return { error: false, data: { turbo: cart.legendary } };
   }
 
   if (!cart.qrActivated) {
     contextLib.runAsAdmin(function () {
       cartLib.markTicketUsed(params.ticketId);
     });
-    return { success: true, data: { turbo: cart.legendary } };
+    return { error: false, data: { turbo: cart.legendary } };
   }
 
-  return { success: false, message: "Билет не найден." };
+  return { error: true, message: "Билет не найден." };
 }
 
 function getUserByTicket(ticketId: number): Content<User> | null {

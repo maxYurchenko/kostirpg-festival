@@ -8,8 +8,10 @@ import * as contextLib from "./../helpers/contextLib";
 
 import { getTablesStartNum } from "./../shared/game/getGameTable";
 import { updateEntity } from "./../shared/updateEntity";
+import { getComingTimeFilter } from "./filters/coming";
+import { getTodayTimeFilter } from "./filters/today";
 
-export { checkUser, getGames, getEvents };
+export { checkUser, getEvents };
 
 function checkUser(params: any) {
   if (!params || !params.ticketId || !params.discordId)
@@ -47,70 +49,6 @@ function getUserByTicket(ticketId: string): any {
   return null;
 }
 
-function getGames(filter?: string, userId?: string) {
-  let query: string;
-  switch (filter) {
-    case "today":
-      query = getTodayTimeFilter();
-      break;
-    case "user":
-      query = getUserFilter(userId);
-      break;
-    default:
-      query = getComingTimeFilter();
-      break;
-  }
-  if (!query) return { success: false };
-  let result = [];
-  let comingGames = contentLib.query<Game>({
-    query: query,
-    start: 0,
-    count: -1,
-    contentTypes: [app.name + ":game"],
-    sort: "_parentPath ASC"
-  }).hits;
-  let tables = 0;
-  let j = 0;
-  for (let i = 0; i < comingGames.length; i++) {
-    let game = comingGames[i];
-    let currTables = getTablesStartNum(game._id);
-    if (tables !== currTables) {
-      tables = currTables;
-      j = 0;
-    }
-    let players: Player[] = [];
-    game.data.players ? game.data.players : [];
-    game.data.players = utils.data.forceArray(game.data.players);
-    if (!game.data.players) continue;
-    game.data.players.forEach((player: any) => {
-      if (!player) return;
-      player = contentLib.get({ key: player });
-      if (player && player.data.discord)
-        players.push({
-          discord: player.data.discord,
-          displayName: player.displayName
-        });
-      else if (player) players.push({ displayName: player.displayName });
-    });
-    let master: any = contentLib.get({ key: game.data.master });
-    result.push({
-      displayName: game.displayName,
-      table: currTables + j,
-      dateTimeStart: game.data.datetime,
-      dateTimeEnd: game.data.datetimeEnd,
-      master: master
-        ? {
-            discord: master.data.discord,
-            displayName: master.displayName
-          }
-        : null,
-      players: players
-    });
-    j++;
-  }
-  return { success: true, games: result };
-}
-
 function getEvents(filter?: string) {
   let query = null;
   switch (filter) {
@@ -139,70 +77,4 @@ function getEvents(filter?: string) {
     });
   }
   return { success: true, games: result };
-}
-
-function getComingTimeFilter() {
-  let prepareDate = new Date();
-  prepareDate.setTime(prepareDate.getTime() + 20 * 60 * 1000);
-  let endDate = new Date();
-  endDate.setTime(endDate.getTime() + 2.5 * 60 * 60 * 1000);
-  let now = new Date();
-  now.setTime(now.getTime() + 20 * 60 * 1000);
-  let gameFilter = new Date();
-  gameFilter.setTime(gameFilter.getTime() - 20 * 60 * 1000);
-  return (
-    "(data.datetime < dateTime('" +
-    prepareDate.toISOString() +
-    "') and data.datetimeEnd > dateTime('" +
-    now.toISOString() +
-    "'))" +
-    " OR (data.datetime > dateTime('" +
-    gameFilter.toISOString() +
-    "') and data.datetime < dateTime('" +
-    endDate.toISOString() +
-    "') and type='" +
-    app.name +
-    ":game')"
-  );
-}
-
-function getTodayTimeFilter() {
-  let todayStart = new Date();
-  let todayEnd = new Date();
-  todayEnd.setHours(23, 59, 59, 999);
-  return (
-    "data.datetime < dateTime('" +
-    todayEnd.toISOString() +
-    "') and data.datetime > dateTime('" +
-    todayStart.toISOString() +
-    "')"
-  );
-}
-
-function getUserFilter(userId?: string) {
-  let users = contentLib.query({
-    query: "data.discord = '" + userId + "'",
-    start: 0,
-    count: -1,
-    contentTypes: [app.name + ":user"]
-  }).hits;
-  let ids: string[] = [];
-  users.forEach((u: Content) => {
-    ids.push(u._id);
-  });
-  if (ids.length > 0) {
-    return (
-      "data.players IN ('" +
-      ids.join("','") +
-      "') OR data.master IN ('" +
-      ids.join("','") +
-      "')"
-    );
-  }
-  return "";
-}
-
-interface Player {
-  discord?: string;
-  displayName: string;
 }

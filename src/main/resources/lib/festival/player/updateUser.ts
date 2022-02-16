@@ -22,10 +22,7 @@ function updateUser(
     };
 
   let updateUser = false;
-  if (
-    ticketId &&
-    !(user.content.data.kosticonnect2022 || user.data.roles.gameMaster)
-  ) {
+  if (ticketId && !user.content.data.kosticonnect2022) {
     if (isNaN(ticketId)) {
       return {
         error: true,
