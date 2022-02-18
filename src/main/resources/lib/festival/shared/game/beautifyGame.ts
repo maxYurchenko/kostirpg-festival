@@ -76,11 +76,11 @@ function beautifyGame(game: Content<Game>): ProcessedGame {
   return processedGame;
 }
 
-function getPlayers(players?: string[]): string {
-  if (!players) return "";
-  let playersArray: string[] = [];
+function getPlayers(players?: string[]): ProcessedPlayers[] {
+  if (!players) return [];
+  let playersArray: ProcessedPlayers[] = [];
   players = utils.data.forceArray(players);
-  if (!players) return "";
+  if (!players) return [];
   players.forEach((player) => {
     let playerObj: any = contentLib.get({ key: player });
     if (playerObj) {
@@ -92,14 +92,18 @@ function getPlayers(players?: string[]): string {
           if (discord) cache.api.put(playerObj._id + "-discord", discord);
         }
       }
-      playersArray.push(
-        playerObj.displayName +
-          " " +
-          (discord ? discord.username + ":" + discord.discriminator : "")
-      );
+      playersArray.push({
+        displayName: playerObj.displayName,
+        discord: discord ? discord.username + "#" + discord.discriminator : null
+      });
     }
   });
-  return playersArray.join(", ");
+  return playersArray;
+}
+
+interface ProcessedPlayers {
+  discord: string | null;
+  displayName: string;
 }
 
 export interface ProcessedGame {
@@ -119,7 +123,7 @@ export interface ProcessedGame {
     block: BlockProcessed | null;
     day: DayProcessed | null;
     location: string | null;
-    players: string;
+    players: ProcessedPlayers[];
     table: string;
     currUserPlays: boolean;
     currUserMaster: boolean;

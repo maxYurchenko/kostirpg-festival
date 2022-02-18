@@ -39,7 +39,7 @@ function fixGameSpace(game: Content<Game>) {
   if (!game.data.players) game.data.players = [];
   let players = utils.data.forceArray(game.data.players);
   game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
-  return updateEntity(game);
+  return updateEntity(game, false);
 }
 
 function checkGamePlayers(game: Content<Game>) {
@@ -62,7 +62,7 @@ function checkGamePlayers(game: Content<Game>) {
   }
   game.data.players = players;
   game.data.spaceAvailable = players.length < parseInt(game.data.maxPlayers);
-  if (updateGame) return updateEntity(game);
+  if (updateGame) return updateEntity(game, false);
   return game;
 }
 
